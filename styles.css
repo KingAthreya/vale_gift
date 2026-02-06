@@ -1,0 +1,565 @@
+/* ============================================
+   VALENTINE PROPOSAL - STYLESHEET
+   Soft pastel romantic theme
+   ============================================ */
+
+/* CSS Variables for consistent theming */
+:root {
+    /* Pastel color palette */
+    --primary-pink: #ffb6c1;
+    --soft-pink: #ffc0cb;
+    --light-pink: #ffe4e1;
+    --rose-pink: #ff69b4;
+    --deep-rose: #ff1493;
+    --cream: #fff5f5;
+    --white: #ffffff;
+    --text-dark: #5a3d5c;
+    --text-light: #8b6b8c;
+    
+    /* Animation timings */
+    --fade-duration: 1s;
+    --float-duration: 8s;
+    --bounce-duration: 0.6s;
+}
+
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body styling with gradient background */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(
+        135deg,
+        var(--cream) 0%,
+        var(--light-pink) 50%,
+        var(--soft-pink) 100%
+    );
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* ============================================
+   FLOATING HEARTS BACKGROUND
+   ============================================ */
+
+/* Container for floating hearts */
+.hearts-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+}
+
+/* Individual floating heart styling */
+.floating-heart {
+    position: absolute;
+    font-size: 1.5rem;
+    opacity: 0.6;
+    animation: floatUp var(--float-duration) linear infinite;
+    user-select: none;
+}
+
+/* Float up animation for hearts */
+@keyframes floatUp {
+    0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.6;
+    }
+    90% {
+        opacity: 0.6;
+    }
+    100% {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* ============================================
+   MAIN PROPOSAL CONTAINER
+   ============================================ */
+
+/* Centered proposal card */
+.proposal-container {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+}
+
+/* Decorative top heart */
+.top-heart {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+/* Pulse animation for decorative elements */
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+/* ============================================
+   TYPOGRAPHY & TEXT ANIMATIONS
+   ============================================ */
+
+/* Main question text */
+.question-text {
+    font-size: 3rem;
+    color: var(--text-dark);
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(255, 182, 193, 0.3);
+}
+
+/* Highlighted "Valentine" text */
+.valentine-text {
+    display: block;
+    font-size: 4rem;
+    background: linear-gradient(135deg, var(--rose-pink), var(--deep-rose));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-top: 0.5rem;
+}
+
+/* Subtitle text */
+.subtitle {
+    font-size: 1.3rem;
+    color: var(--text-light);
+    margin-bottom: 3rem;
+    font-style: italic;
+}
+
+/* ============================================
+   FADE-IN ANIMATIONS
+   ============================================ */
+
+/* Base fade-in class */
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp var(--fade-duration) ease forwards;
+}
+
+/* Staggered animation delays */
+.fade-in.delay-1 {
+    animation-delay: 0.5s;
+}
+
+.fade-in.delay-2 {
+    animation-delay: 1s;
+}
+
+/* Fade in and move up animation */
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============================================
+   BUTTON STYLES
+   ============================================ */
+
+/* Button container */
+.button-container {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* Base button styling */
+.btn {
+    padding: 1rem 2.5rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Yes button - primary action */
+.btn-yes {
+    background: linear-gradient(135deg, var(--rose-pink), var(--deep-rose));
+    color: var(--white);
+    box-shadow: 0 4px 15px rgba(255, 20, 147, 0.4);
+}
+
+/* Yes button hover effect */
+.btn-yes:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(255, 20, 147, 0.5);
+}
+
+/* Yes button click effect */
+.btn-yes:active {
+    transform: translateY(0);
+}
+
+/* No button - playful secondary action */
+.btn-no {
+    background: var(--white);
+    color: var(--text-light);
+    border: 2px solid var(--primary-pink);
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+/* No button hover - moves away playfully */
+.btn-no:hover {
+    background: var(--light-pink);
+}
+
+/* ============================================
+   SUCCESS MESSAGE
+   ============================================ */
+
+/* Hidden by default */
+.success-message {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--cream) 0%, var(--light-pink) 50%, var(--soft-pink) 100%);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    z-index: 100;
+    padding: 2rem;
+}
+
+/* Show success message */
+.success-message.show {
+    display: flex;
+}
+
+/* Pop in animation */
+@keyframes popIn {
+    0% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 0;
+    }
+    80% {
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+}
+
+/* Success heart animation */
+.success-heart {
+    font-size: 6rem;
+    animation: heartbeat 1s ease-in-out infinite, popIn 0.6s ease forwards;
+    margin-bottom: 1.5rem;
+}
+
+/* Success message content wrapper */
+.success-message h2,
+.success-message p {
+    animation: fadeInUp 0.8s ease forwards;
+    opacity: 0;
+}
+
+.success-message h2 {
+    animation-delay: 0.3s;
+}
+
+.success-message .success-text {
+    animation-delay: 0.6s;
+}
+
+.success-message .mine-text {
+    animation-delay: 0.9s;
+}
+
+.success-message .love-note {
+    animation-delay: 1.2s;
+}
+
+/* Surprise text styling */
+.surprise-text {
+    font-size: 1.3rem;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+    max-width: 500px;
+    line-height: 1.5;
+    animation: fadeInUp 0.8s ease forwards;
+    animation-delay: 1.5s;
+    opacity: 0;
+}
+
+/* Signature styling */
+.signature {
+    font-size: 1.1rem;
+    color: var(--rose-pink);
+    font-style: italic;
+    margin-top: 1.5rem;
+    font-weight: 500;
+    animation: fadeInUp 0.8s ease forwards;
+    animation-delay: 1.8s;
+    opacity: 0;
+}
+
+/* Heartbeat animation */
+@keyframes heartbeat {
+    0%, 100% {
+        transform: scale(1);
+    }
+    25% {
+        transform: scale(1.1);
+    }
+    50% {
+        transform: scale(1);
+    }
+    75% {
+        transform: scale(1.15);
+    }
+}
+
+/* Success message heading */
+.success-message h2 {
+    font-size: 2.5rem;
+    color: var(--deep-rose);
+    margin-bottom: 1rem;
+}
+
+/* Success message paragraphs */
+.success-message p {
+    font-size: 1.2rem;
+    color: var(--text-dark);
+    margin-bottom: 0.5rem;
+}
+
+/* Success text styling */
+.success-text {
+    font-size: 1.3rem;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+}
+
+/* "You're MINE" text styling */
+.mine-text {
+    font-size: 1.4rem;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+    font-style: italic;
+}
+
+/* Highlighted "MINE" text */
+.mine-text .highlight {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--deep-rose), var(--rose-pink));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
+    font-size: 1.6rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    animation: pulseText 1.5s ease-in-out infinite;
+}
+
+/* Pulsing animation for "MINE" text */
+@keyframes pulseText {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+/* Love note styling */
+.love-note {
+    font-size: 1.5rem !important;
+    color: var(--deep-rose) !important;
+    font-weight: 600;
+    margin-top: 1rem;
+}
+
+/* ============================================
+   CONFETTI ANIMATION
+   ============================================ */
+
+/* Confetti container */
+.confetti-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 50;
+    overflow: hidden;
+}
+
+/* Individual confetti piece */
+.confetti {
+    position: absolute;
+    font-size: 1.5rem;
+    animation: confettiFall 3s ease-out forwards;
+}
+
+/* Confetti fall animation */
+@keyframes confettiFall {
+    0% {
+        transform: translateY(-100px) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+/* ============================================
+   MOBILE RESPONSIVENESS
+   ============================================ */
+
+/* Tablet and smaller screens */
+@media (max-width: 768px) {
+    .question-text {
+        font-size: 2.2rem;
+    }
+    
+    .valentine-text {
+        font-size: 2.8rem;
+    }
+    
+    .subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .btn {
+        padding: 0.9rem 2rem;
+        font-size: 1.1rem;
+    }
+    
+    .button-container {
+        gap: 1.5rem;
+    }
+    
+    .top-heart {
+        font-size: 3rem;
+    }
+    
+    .success-message {
+        padding: 2rem;
+        margin: 1rem;
+        width: calc(100% - 2rem);
+    }
+    
+    .success-message h2 {
+        font-size: 2rem;
+    }
+}
+
+/* Small mobile screens */
+@media (max-width: 480px) {
+    .question-text {
+        font-size: 1.8rem;
+    }
+    
+    .valentine-text {
+        font-size: 2.2rem;
+    }
+    
+    .subtitle {
+        font-size: 1rem;
+        margin-bottom: 2rem;
+    }
+    
+    .btn {
+        padding: 0.8rem 1.8rem;
+        font-size: 1rem;
+        width: 100%;
+        max-width: 200px;
+    }
+    
+    .button-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+    
+    .top-heart {
+        font-size: 2.5rem;
+    }
+    
+    .proposal-container {
+        padding: 1.5rem;
+    }
+}
+
+/* Extra small screens */
+@media (max-width: 320px) {
+    .question-text {
+        font-size: 1.5rem;
+    }
+    
+    .valentine-text {
+        font-size: 1.8rem;
+    }
+    
+    .subtitle {
+        font-size: 0.9rem;
+    }
+}
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .floating-heart {
+        display: none;
+    }
+}
+
+/* Focus styles for keyboard navigation */
+.btn:focus-visible {
+    outline: 3px solid var(--deep-rose);
+    outline-offset: 3px;
+}

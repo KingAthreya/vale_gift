@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Will You Be My Valentine?</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Floating hearts background container -->
+    <div class="hearts-container" id="heartsContainer"></div>
+
+    <!-- Main content wrapper -->
+    <main class="proposal-container" id="proposalContainer">
+      <!-- Decorative top heart -->
+      <div class="top-heart">💝</div>
+
+      <!-- Main question with fade-in animation -->
+      <h1 class="fade-in question-text">
+        Will You Be My
+        <span class="valentine-text">Valentine?</span>
+      </h1>
+
+      <!-- Subtle romantic message -->
+      <p class="fade-in delay-1 subtitle">You make my heart skip a beat 💕</p>
+
+      <!-- Button container -->
+      <div class="button-container fade-in delay-2">
+        <!-- Yes button with celebration effect -->
+        <button class="btn btn-yes" id="yesBtn">Yes! 💖</button>
+
+        <!-- No button that moves away on hover -->
+        <button class="btn btn-no" id="noBtn">Let me think... 💔</button>
+      </div>
+    </main>
+
+    <!-- Hidden success message (outside main container) -->
+    <div class="success-message" id="successMessage">
+      <div class="success-heart">💕</div>
+      <h2>You said YES!</h2>
+      <p class="success-text">You've made me the happiest person alive!</p>
+      <p class="mine-text">
+        And don't you forget...
+        <span class="highlight">You're MINE</span>
+        💝
+      </p>
+      <p class="surprise-text">
+        Be ready to have the most amazing 7 days of your life full of gifts and
+        surprises! 🎁✨
+      </p>
+      <p class="love-note">Forever & Always 💘</p>
+      <p class="signature">~ Your Athreya</p>
+    </div>
+
+    <!-- Confetti container for celebration effect -->
+    <div class="confetti-container" id="confettiContainer"></div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
