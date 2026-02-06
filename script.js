@@ -226,6 +226,10 @@ function handleYesClick() {
     // Immediately show success message
     successMessage.classList.add('show');
     
+    // Start playing music and update player UI
+    startMusic();
+    updateMusicPlayer();
+    
     // Trigger confetti celebrations
     triggerConfetti();
     startConfettiRain();
@@ -233,6 +237,39 @@ function handleYesClick() {
     // Create additional burst after a delay
     setTimeout(triggerConfetti, 500);
     setTimeout(triggerConfetti, 1000);
+}
+
+/**
+ * Starts playing the YouTube music
+ * Creates and inserts the iframe after user interaction
+ */
+function startMusic() {
+    const audioContainer = document.getElementById('audioContainer');
+    
+    // Create the iframe for YouTube audio
+    const iframe = document.createElement('iframe');
+    iframe.width = '0';
+    iframe.height = '0';
+    iframe.src = 'https://www.youtube.com/embed/OTOmQmOFeVo?autoplay=1&loop=1&playlist=OTOmQmOFeVo';
+    iframe.title = 'You & Me - James TW';
+    iframe.frameBorder = '0';
+    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+    iframe.allowFullscreen = true;
+    
+    // Insert the iframe
+    audioContainer.appendChild(iframe);
+    
+    console.log('🎵 Music started playing!');
+}
+
+/**
+ * Updates the music player UI to show "Now Playing"
+ */
+function updateMusicPlayer() {
+    const musicLabel = document.querySelector('.music-label');
+    if (musicLabel) {
+        musicLabel.textContent = 'Now Playing';
+    }
 }
 
 // ============================================
