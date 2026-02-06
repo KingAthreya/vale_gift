@@ -44,6 +44,161 @@ body {
 }
 
 /* ============================================
+   MUSIC PLAYER WIDGET
+   ============================================ */
+
+/* Music player container */
+.music-player {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 12px 20px;
+    border-radius: 50px;
+    box-shadow: 0 4px 20px rgba(255, 105, 180, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 1000;
+    animation: slideInRight 0.8s ease forwards;
+    backdrop-filter: blur(10px);
+}
+
+/* Slide in animation */
+@keyframes slideInRight {
+    from {
+        transform: translateX(200px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Music icon */
+.music-icon {
+    font-size: 1.5rem;
+    animation: bounce 1s ease-in-out infinite;
+}
+
+/* Bounce animation for music icon */
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+/* Music info container */
+.music-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+/* "Now Playing" label */
+.music-label {
+    font-size: 0.7rem;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Song title */
+.music-title {
+    font-size: 0.9rem;
+    color: var(--text-dark);
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* Music visualizer bars */
+.music-visualizer {
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+    height: 20px;
+    margin-left: 8px;
+}
+
+/* Visualizer bars */
+.music-visualizer span {
+    width: 4px;
+    background: linear-gradient(to top, var(--rose-pink), var(--deep-rose));
+    border-radius: 2px;
+    animation: visualizer 1s ease-in-out infinite;
+}
+
+/* Staggered animation delays for visualizer bars */
+.music-visualizer span:nth-child(1) {
+    height: 8px;
+    animation-delay: 0s;
+}
+
+.music-visualizer span:nth-child(2) {
+    height: 15px;
+    animation-delay: 0.2s;
+}
+
+.music-visualizer span:nth-child(3) {
+    height: 12px;
+    animation-delay: 0.4s;
+}
+
+.music-visualizer span:nth-child(4) {
+    height: 18px;
+    animation-delay: 0.1s;
+}
+
+/* Visualizer animation */
+@keyframes visualizer {
+    0%, 100% {
+        transform: scaleY(0.5);
+    }
+    50% {
+        transform: scaleY(1);
+    }
+}
+
+/* Hidden audio container */
+.audio-container {
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+}
+
+/* Mobile responsive music player */
+@media (max-width: 768px) {
+    .music-player {
+        top: 10px;
+        right: 10px;
+        padding: 10px 15px;
+        gap: 8px;
+    }
+    
+    .music-icon {
+        font-size: 1.2rem;
+    }
+    
+    .music-title {
+        font-size: 0.8rem;
+    }
+    
+    .music-label {
+        font-size: 0.6rem;
+    }
+    
+    .music-visualizer {
+        display: none;
+    }
+}
+
+/* ============================================
    FLOATING HEARTS BACKGROUND
    ============================================ */
 
@@ -477,13 +632,55 @@ body {
     }
     
     .success-message {
-        padding: 2rem;
-        margin: 1rem;
-        width: calc(100% - 2rem);
+        padding: 2rem 1.5rem;
+        margin: 0;
+        width: 100%;
+        border-radius: 0;
     }
     
     .success-message h2 {
-        font-size: 2rem;
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+    }
+    
+    .success-message .success-heart {
+        font-size: 4rem;
+        margin-bottom: 1rem;
+    }
+    
+    .success-message .success-text {
+        font-size: 1.1rem;
+        margin-bottom: 0.8rem;
+        line-height: 1.4;
+    }
+    
+    .success-message .mine-text {
+        font-size: 1.2rem;
+        margin-bottom: 0.8rem;
+        line-height: 1.4;
+    }
+    
+    .success-message .mine-text .highlight {
+        font-size: 1.4rem;
+    }
+    
+    .success-message .surprise-text {
+        font-size: 1rem;
+        max-width: 100%;
+        padding: 0 0.5rem;
+        margin-bottom: 0.8rem;
+        line-height: 1.5;
+    }
+    
+    .success-message .love-note {
+        font-size: 1.2rem !important;
+        margin-top: 0.8rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .success-message .signature {
+        font-size: 1rem;
+        margin-top: 1rem;
     }
 }
 
@@ -521,6 +718,43 @@ body {
     
     .proposal-container {
         padding: 1.5rem;
+    }
+    
+    .success-message {
+        padding: 1.5rem 1rem;
+    }
+    
+    .success-message h2 {
+        font-size: 1.6rem;
+    }
+    
+    .success-message .success-heart {
+        font-size: 3.5rem;
+    }
+    
+    .success-message .success-text {
+        font-size: 1rem;
+    }
+    
+    .success-message .mine-text {
+        font-size: 1.1rem;
+    }
+    
+    .success-message .mine-text .highlight {
+        font-size: 1.3rem;
+    }
+    
+    .success-message .surprise-text {
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+    
+    .success-message .love-note {
+        font-size: 1.1rem !important;
+    }
+    
+    .success-message .signature {
+        font-size: 0.95rem;
     }
 }
 
