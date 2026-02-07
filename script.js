@@ -1,6 +1,6 @@
 /**
- * VALENTINE PROPOSAL - INTERACTIVE SCRIPT
- * Features: Floating hearts, playful "No" button, confetti celebration
+ * VALENTINE SUCCESS PAGE - INTERACTIVE SCRIPT
+ * Features: Floating hearts, music player, gift button navigation
  */
 
 // ============================================
@@ -8,12 +8,10 @@
 // ============================================
 
 // Main interactive elements
-const yesBtn = document.getElementById('yesBtn');
-const noBtn = document.getElementById('noBtn');
 const heartsContainer = document.getElementById('heartsContainer');
 const confettiContainer = document.getElementById('confettiContainer');
-const successMessage = document.getElementById('successMessage');
-const proposalContainer = document.querySelector('.proposal-container');
+const mainContainer = document.getElementById('mainContainer');
+const audioContainer = document.getElementById('audioContainer');
 
 // Heart emojis for floating animation
 const heartEmojis = ['💕', '💖', '💗', '💓', '💝', '💘', '🩷', '❤️'];
@@ -71,54 +69,6 @@ function initFloatingHearts() {
     
     // Continue creating hearts every 800ms
     setInterval(createFloatingHeart, 800);
-}
-
-// ============================================
-// PLAYFUL "NO" BUTTON
-// ============================================
-
-/**
- * Moves the "No" button to a random position when hovered
- * Creates a playful, hard-to-click effect
- */
-function moveNoButton() {
-    // Get viewport dimensions
-    const viewportWidth = window.innerWidth;
-    const viewportHeight = window.innerHeight;
-    
-    // Get button dimensions
-    const btnRect = noBtn.getBoundingClientRect();
-    const btnWidth = btnRect.width;
-    const btnHeight = btnRect.height;
-    
-    // Calculate safe area (keep button within viewport with padding)
-    const padding = 20;
-    const maxX = viewportWidth - btnWidth - padding;
-    const maxY = viewportHeight - btnHeight - padding;
-    
-    // Generate random position
-    const randomX = Math.random() * (maxX - padding) + padding;
-    const randomY = Math.random() * (maxY - padding) + padding;
-    
-    // Apply new position with smooth transition
-    noBtn.style.position = 'fixed';
-    noBtn.style.left = randomX + 'px';
-    noBtn.style.top = randomY + 'px';
-    noBtn.style.zIndex = '10';
-    
-    // Add playful rotation
-    const rotation = Math.random() * 20 - 10;
-    noBtn.style.transform = `rotate(${rotation}deg)`;
-}
-
-/**
- * Reset "No" button position (for mobile/touch devices)
- */
-function resetNoButton() {
-    noBtn.style.position = 'relative';
-    noBtn.style.left = 'auto';
-    noBtn.style.top = 'auto';
-    noBtn.style.transform = 'none';
 }
 
 // ============================================
@@ -215,61 +165,16 @@ function startConfettiRain() {
 }
 
 // ============================================
-// SUCCESS STATE
+// GIFT BUTTON NAVIGATION
 // ============================================
 
 /**
- * Handles "Yes" button click
- * Shows success message and triggers celebrations
+ * Handles "Unlock Gift" button click
+ * Navigates to Rose Day gift page
  */
-function handleYesClick() {
-    // Immediately show success message
-    successMessage.classList.add('show');
-    
-    // Start playing music and update player UI
-    startMusic();
-    updateMusicPlayer();
-    
-    // Trigger confetti celebrations
-    triggerConfetti();
-    startConfettiRain();
-    
-    // Create additional burst after a delay
-    setTimeout(triggerConfetti, 500);
-    setTimeout(triggerConfetti, 1000);
-}
-
-/**
- * Starts playing the YouTube music
- * Creates and inserts the iframe after user interaction
- */
-function startMusic() {
-    const audioContainer = document.getElementById('audioContainer');
-    
-    // Create the iframe for YouTube audio
-    const iframe = document.createElement('iframe');
-    iframe.width = '0';
-    iframe.height = '0';
-    iframe.src = 'https://www.youtube.com/embed/OTOmQmOFeVo?autoplay=1&loop=1&playlist=OTOmQmOFeVo';
-    iframe.title = 'You & Me - James TW';
-    iframe.frameBorder = '0';
-    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
-    iframe.allowFullscreen = true;
-    
-    // Insert the iframe
-    audioContainer.appendChild(iframe);
-    
-    console.log('🎵 Music started playing!');
-}
-
-/**
- * Updates the music player UI to show "Now Playing"
- */
-function updateMusicPlayer() {
-    const musicLabel = document.querySelector('.music-label');
-    if (musicLabel) {
-        musicLabel.textContent = 'Now Playing';
-    }
+function handleGiftClick() {
+    // Navigate to Rose Day page
+    window.location.href = 'roseday.html';
 }
 
 // ============================================
@@ -280,32 +185,11 @@ function updateMusicPlayer() {
  * Initialize all event listeners
  */
 function initEventListeners() {
-    // "Yes" button click - celebrate!
-    yesBtn.addEventListener('click', handleYesClick);
-    
-    // "No" button hover - move away playfully (desktop only)
-    if (window.matchMedia('(pointer: fine)').matches) {
-        noBtn.addEventListener('mouseenter', moveNoButton);
+    // "Unlock Gift" button click - navigate to Rose Day page
+    const unlockGiftBtn = document.getElementById('unlockGiftBtn');
+    if (unlockGiftBtn) {
+        unlockGiftBtn.addEventListener('click', handleGiftClick);
     }
-    
-    // "No" button click - playful message
-    noBtn.addEventListener('click', () => {
-        // Show playful alert
-        const messages = [
-            'Nice try! 😄',
-            'You can\'t say no to love! 💕',
-            'Try clicking Yes instead! 💖',
-            'My heart says you mean Yes! 💗'
-        ];
-        alert(messages[Math.floor(Math.random() * messages.length)]);
-    });
-    
-    // Handle window resize - reset no button if needed
-    window.addEventListener('resize', () => {
-        if (window.innerWidth < 768) {
-            resetNoButton();
-        }
-    });
 }
 
 // ============================================
@@ -319,6 +203,10 @@ document.addEventListener('DOMContentLoaded', () => {
     initFloatingHearts();
     initEventListeners();
     
-    console.log('💕 Valentine Proposal initialized! 💕');
-    console.log('Will you be my Valentine?');
+    // Trigger initial confetti celebration
+    triggerConfetti();
+    startConfettiRain();
+    
+    console.log('💕 Valentine Success Page initialized! 💕');
+    console.log('She said YES!');
 });

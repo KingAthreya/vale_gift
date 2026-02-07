@@ -361,22 +361,28 @@ body {
     overflow: hidden;
 }
 
-/* Yes button - primary action */
-.btn-yes {
+/* Gift button - primary action */
+.btn-gift {
     background: linear-gradient(135deg, var(--rose-pink), var(--deep-rose));
     color: var(--white);
     box-shadow: 0 4px 15px rgba(255, 20, 147, 0.4);
+    margin-top: 2rem;
+    font-size: 1.3rem;
+    padding: 1.2rem 3rem;
+    animation: pulse 2s ease-in-out infinite, fadeInUp 1s ease forwards;
+    animation-delay: 0s, 1.5s;
+    opacity: 0;
 }
 
-/* Yes button hover effect */
-.btn-yes:hover {
-    transform: translateY(-3px);
+/* Gift button hover effect */
+.btn-gift:hover {
+    transform: translateY(-3px) scale(1.05);
     box-shadow: 0 8px 25px rgba(255, 20, 147, 0.5);
 }
 
-/* Yes button click effect */
-.btn-yes:active {
-    transform: translateY(0);
+/* Gift button click effect */
+.btn-gift:active {
+    transform: translateY(0) scale(1);
 }
 
 /* No button - playful secondary action */

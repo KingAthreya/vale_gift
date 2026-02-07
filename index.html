@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Will You Be My Valentine?</title>
+    <title>You Said YES! 💕</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -14,7 +14,7 @@
     <div class="music-player" id="musicPlayer">
       <div class="music-icon">🎵</div>
       <div class="music-info">
-        <span class="music-label">Click Yes to Play</span>
+        <span class="music-label">Now Playing</span>
         <span class="music-title">You & Me - James TW</span>
       </div>
       <div class="music-visualizer">
@@ -25,37 +25,30 @@
       </div>
     </div>
 
-    <!-- YouTube Audio Embed (Hidden) - Will load after Yes click -->
+    <!-- YouTube Audio Embed (Hidden) -->
     <div class="audio-container" id="audioContainer">
-      <!-- Audio iframe will be inserted here after Yes click -->
+      <iframe
+        id="youtubePlayer"
+        width="0"
+        height="0"
+        src="https://www.youtube.com/embed/OTOmQmOFeVo?autoplay=1&loop=1&playlist=OTOmQmOFeVo"
+        title="You & Me - James TW"
+        frameborder="0"
+        allow="
+          accelerometer;
+          autoplay;
+          clipboard-write;
+          encrypted-media;
+          gyroscope;
+          picture-in-picture;
+          web-share;
+        "
+        allowfullscreen
+      ></iframe>
     </div>
 
-    <!-- Main content wrapper -->
-    <main class="proposal-container" id="proposalContainer">
-      <!-- Decorative top heart -->
-      <div class="top-heart">💝</div>
-
-      <!-- Main question with fade-in animation -->
-      <h1 class="fade-in question-text">
-        Will You Be My
-        <span class="valentine-text">Valentine?</span>
-      </h1>
-
-      <!-- Subtle romantic message -->
-      <p class="fade-in delay-1 subtitle">You make my heart skip a beat 💕</p>
-
-      <!-- Button container -->
-      <div class="button-container fade-in delay-2">
-        <!-- Yes button with celebration effect -->
-        <button class="btn btn-yes" id="yesBtn">Yes! 💖</button>
-
-        <!-- No button that moves away on hover -->
-        <button class="btn btn-no" id="noBtn">Let me think... 💔</button>
-      </div>
-    </main>
-
-    <!-- Hidden success message (outside main container) -->
-    <div class="success-message" id="successMessage">
+    <!-- Main content wrapper - Landing Page (Success Message) -->
+    <main class="proposal-container" id="mainContainer">
       <div class="success-heart">💕</div>
       <h2>You said YES!</h2>
       <p class="success-text">You've made me the happiest person alive!</p>
@@ -70,7 +63,12 @@
       </p>
       <p class="love-note">Forever & Always 💘</p>
       <p class="signature">~ Your Athreya</p>
-    </div>
+
+      <!-- Unlock Gift Button -->
+      <button class="btn btn-gift" id="unlockGiftBtn">
+        🎁 Unlock Your First Gift
+      </button>
+    </main>
 
     <!-- Confetti container for celebration effect -->
     <div class="confetti-container" id="confettiContainer"></div>
