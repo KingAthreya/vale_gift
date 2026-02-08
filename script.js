@@ -170,11 +170,11 @@ function startConfettiRain() {
 
 /**
  * Handles "Unlock Gift" button click
- * Navigates to Rose Day gift page
+ * Navigates to Propose Day gift page (current day)
  */
 function handleGiftClick() {
-    // Navigate to Rose Day page
-    window.location.href = 'roseday.html';
+    // Navigate to Propose Day page (current unlockable day)
+    window.location.href = 'proposeday.html';
 }
 
 // ============================================
