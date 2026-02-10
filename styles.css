@@ -924,30 +924,30 @@ body {
     color: #22c55e;
 }
 
-/* Current Timeline Item - Chocolate Day Theme */
+/* Current Timeline Item - Teddy Day Theme */
 .timeline-item.current {
-    background: linear-gradient(135deg, rgba(198, 134, 66, 0.15), rgba(92, 51, 23, 0.1));
-    border: 2px solid rgba(139, 69, 19, 0.5);
+    background: linear-gradient(135deg, rgba(255, 201, 71, 0.12), rgba(26, 26, 46, 0.15));
+    border: 2px solid rgba(255, 201, 71, 0.45);
     animation: pulseGlow 2s ease-in-out infinite;
 }
 
 @keyframes pulseGlow {
     0%, 100% {
-        box-shadow: 0 0 10px rgba(139, 69, 19, 0.2);
+        box-shadow: 0 0 10px rgba(255, 201, 71, 0.15);
     }
     50% {
-        box-shadow: 0 0 25px rgba(198, 134, 66, 0.4);
+        box-shadow: 0 0 25px rgba(255, 201, 71, 0.35);
     }
 }
 
 .timeline-item.current:hover {
     transform: translateX(8px) scale(1.02);
-    box-shadow: 0 6px 25px rgba(139, 69, 19, 0.3);
+    box-shadow: 0 6px 25px rgba(255, 201, 71, 0.25);
 }
 
 .timeline-item.current .timeline-marker {
-    background: linear-gradient(135deg, #5c3317, #c68642);
-    box-shadow: 0 2px 15px rgba(139, 69, 19, 0.5);
+    background: linear-gradient(135deg, #ffc947, #ff9f43);
+    box-shadow: 0 2px 15px rgba(255, 201, 71, 0.5);
     animation: markerPulse 1.5s ease-in-out infinite;
 }
 
@@ -961,11 +961,11 @@ body {
 }
 
 .timeline-item.current .day-name {
-    color: #5c3317;
+    color: #b8860b;
 }
 
 .timeline-item.current .day-status {
-    color: #8b4513;
+    color: #daa520;
     font-weight: 600;
 }
 
