@@ -336,10 +336,104 @@ function initTouchInteraction() {
     }, { passive: true });
 }
 
+// ============================================
+// CLICK INTERACTION - FISH SWIM AWAY + RIPPLE
+// ============================================
+
+const clickFishEmojis = ['🐟', '🐠', '🐡', '🐟', '🐠'];
+
+/**
+ * Creates a water ripple effect at click position
+ */
+function createRipple(x, y) {
+    for (let i = 0; i < 3; i++) {
+        const ripple = document.createElement('div');
+        ripple.classList.add('water-ripple');
+        ripple.style.left = x + 'px';
+        ripple.style.top = y + 'px';
+        ripple.style.animationDelay = (i * 0.2) + 's';
+        document.body.appendChild(ripple);
+
+        setTimeout(() => { ripple.remove(); }, 1500);
+    }
+}
+
+/**
+ * Creates a little fish that swims away from click position
+ */
+function createSwimAwayFish(x, y) {
+    const fish = document.createElement('div');
+    const emoji = clickFishEmojis[Math.floor(Math.random() * clickFishEmojis.length)];
+    
+    // Random swim direction
+    const angle = Math.random() * Math.PI * 2;
+    const distance = Math.random() * 200 + 150;
+    const endX = Math.cos(angle) * distance;
+    const endY = Math.sin(angle) * distance;
+    const flipX = endX > 0 ? 1 : -1;
+    
+    fish.textContent = emoji;
+    fish.classList.add('swim-away-fish');
+    fish.style.left = x + 'px';
+    fish.style.top = y + 'px';
+    fish.style.setProperty('--swim-x', endX + 'px');
+    fish.style.setProperty('--swim-y', endY + 'px');
+    fish.style.setProperty('--flip', flipX);
+    
+    document.body.appendChild(fish);
+
+    setTimeout(() => { fish.remove(); }, 1200);
+}
+
+/**
+ * Creates small bubbles trailing behind the fish
+ */
+function createFishBubbles(x, y) {
+    for (let i = 0; i < 4; i++) {
+        setTimeout(() => {
+            const bubble = document.createElement('div');
+            bubble.classList.add('click-bubble');
+            bubble.style.left = (x + (Math.random() - 0.5) * 30) + 'px';
+            bubble.style.top = (y + (Math.random() - 0.5) * 30) + 'px';
+            
+            const size = Math.random() * 8 + 4;
+            bubble.style.width = size + 'px';
+            bubble.style.height = size + 'px';
+            
+            document.body.appendChild(bubble);
+            
+            setTimeout(() => { bubble.remove(); }, 1000);
+        }, i * 80);
+    }
+}
+
+/**
+ * Initialize click interaction for fish + ripple
+ */
+function initClickInteraction() {
+    document.addEventListener('click', (e) => {
+        // Don't trigger on links or buttons
+        if (e.target.closest('a') || e.target.closest('button')) return;
+        
+        const x = e.clientX;
+        const y = e.clientY;
+        
+        // Create water ripple
+        createRipple(x, y);
+        
+        // Create swimming fish
+        createSwimAwayFish(x, y);
+        
+        // Create trailing bubbles
+        createFishBubbles(x, y);
+    });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     initEffects();
     initMouseInteraction();
     initTouchInteraction();
+    initClickInteraction();
 
     console.log('🌊 Promise Day page initialized!');
     console.log('Happy Promise Day! 🐚🌙');
