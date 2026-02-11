@@ -1,0 +1,863 @@
+/* ============================================
+   PROMISE DAY - STYLESHEET
+   Ocean, pearls, whales, moonstone pendant theme
+   ============================================ */
+
+/* CSS Variables for Promise Day theme */
+:root {
+    --ocean-deep: #0a1628;
+    --ocean-dark: #0d2137;
+    --ocean-mid: #0f3460;
+    --ocean-light: #1a5276;
+    --ocean-surface: #2980b9;
+    --moonstone: #c4e0f9;
+    --moonstone-glow: #e8f4fd;
+    --pearl-white: #f0f5ff;
+    --pearl-shimmer: #d4e6f1;
+    --aqua: #48c9b0;
+    --aqua-light: #76d7c4;
+    --coral: #f0b27a;
+    --foam-white: #eaf2f8;
+    --text-cream: #ecf0f1;
+    --text-glow: #85c1e9;
+    --sand-gold: #f4d03f;
+
+    --float-duration: 14s;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Dancing+Script:wght@400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Deep ocean gradient background */
+body {
+    font-family: 'Quicksand', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(
+        180deg,
+        #0a1628 0%,
+        #0d2137 15%,
+        #0f3460 35%,
+        #1a5276 55%,
+        #154360 75%,
+        #0b2e4a 100%
+    );
+    overflow-x: hidden;
+    position: relative;
+    color: var(--text-cream);
+}
+
+/* Underwater ambient light overlay */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        radial-gradient(ellipse at 50% 10%, rgba(196, 224, 249, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 30% 40%, rgba(72, 201, 176, 0.06) 0%, transparent 40%),
+        radial-gradient(ellipse at 70% 30%, rgba(133, 193, 233, 0.05) 0%, transparent 40%),
+        radial-gradient(ellipse at 50% 80%, rgba(10, 22, 40, 0.3) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ============================================
+   OCEAN BACKGROUND WAVES
+   ============================================ */
+
+.ocean-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.ocean-wave {
+    position: absolute;
+    width: 200%;
+    height: 200px;
+    opacity: 0.04;
+    border-radius: 40%;
+}
+
+.wave-1 {
+    bottom: -50px;
+    left: -50%;
+    background: var(--moonstone);
+    animation: waveMove 12s ease-in-out infinite;
+}
+
+.wave-2 {
+    bottom: -80px;
+    left: -50%;
+    background: var(--aqua);
+    animation: waveMove 15s ease-in-out infinite reverse;
+    opacity: 0.03;
+}
+
+.wave-3 {
+    bottom: -110px;
+    left: -50%;
+    background: var(--pearl-white);
+    animation: waveMove 18s ease-in-out infinite;
+    opacity: 0.02;
+}
+
+@keyframes waveMove {
+    0%, 100% { transform: translateX(0) rotate(0deg); }
+    25% { transform: translateX(3%) rotate(1deg); }
+    50% { transform: translateX(-2%) rotate(-1deg); }
+    75% { transform: translateX(4%) rotate(0.5deg); }
+}
+
+/* ============================================
+   UNDERWATER LIGHT RAYS
+   ============================================ */
+
+.light-rays {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.ray {
+    position: absolute;
+    top: -20%;
+    width: 3px;
+    height: 120%;
+    background: linear-gradient(
+        180deg,
+        rgba(196, 224, 249, 0.12) 0%,
+        rgba(196, 224, 249, 0.04) 40%,
+        transparent 80%
+    );
+    transform-origin: top center;
+    animation: rayShimmer 8s ease-in-out infinite;
+}
+
+.ray-1 { left: 15%; animation-delay: 0s; transform: rotate(5deg); }
+.ray-2 { left: 30%; animation-delay: 1.5s; transform: rotate(-3deg); width: 2px; }
+.ray-3 { left: 50%; animation-delay: 3s; transform: rotate(2deg); }
+.ray-4 { left: 70%; animation-delay: 0.8s; transform: rotate(-4deg); width: 2px; }
+.ray-5 { left: 85%; animation-delay: 2.2s; transform: rotate(3deg); }
+
+@keyframes rayShimmer {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.8; }
+}
+
+/* ============================================
+   FLOATING ELEMENTS BACKGROUND
+   ============================================ */
+
+.floats-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+}
+
+/* Floating bubbles, pearls, fish */
+.floating-item {
+    position: absolute;
+    font-size: 2rem;
+    opacity: 0.7;
+    animation: floatOcean var(--float-duration) linear infinite;
+    user-select: none;
+}
+
+@keyframes floatOcean {
+    0% {
+        transform: translateY(105vh) translateX(0) rotate(0deg);
+        opacity: 0;
+    }
+    5% { opacity: 0.6; }
+    25% { transform: translateY(75vh) translateX(20px) rotate(5deg); }
+    50% { transform: translateY(50vh) translateX(-15px) rotate(-5deg); }
+    75% { transform: translateY(25vh) translateX(10px) rotate(8deg); }
+    95% { opacity: 0.6; }
+    100% {
+        transform: translateY(-50px) translateX(5px) rotate(0deg);
+        opacity: 0;
+    }
+}
+
+/* Bubble element */
+.bubble {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle at 30% 30%,
+        rgba(255, 255, 255, 0.3),
+        rgba(196, 224, 249, 0.1),
+        transparent
+    );
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    animation: bubbleRise 10s ease-in-out infinite;
+}
+
+@keyframes bubbleRise {
+    0% {
+        transform: translateY(100vh) translateX(0) scale(0.5);
+        opacity: 0;
+    }
+    10% { opacity: 0.6; }
+    50% { transform: translateY(50vh) translateX(20px) scale(1); }
+    90% { opacity: 0.4; }
+    100% {
+        transform: translateY(-20px) translateX(-10px) scale(1.2);
+        opacity: 0;
+    }
+}
+
+/* Pearl floating element */
+.pearl {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle at 35% 35%,
+        #ffffff,
+        #e8f4fd,
+        #c4e0f9,
+        #a9cce3
+    );
+    box-shadow:
+        0 0 8px 2px rgba(196, 224, 249, 0.4),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.1);
+    animation: pearlFloat 12s ease-in-out infinite;
+}
+
+@keyframes pearlFloat {
+    0%, 100% {
+        transform: translateY(0) translateX(0) scale(1);
+        opacity: 0.5;
+    }
+    25% { transform: translateY(-40px) translateX(15px) scale(1.1); opacity: 0.8; }
+    50% { transform: translateY(-20px) translateX(-10px) scale(0.9); opacity: 1; }
+    75% { transform: translateY(-50px) translateX(20px) scale(1.05); opacity: 0.7; }
+}
+
+/* ============================================
+   BACK BUTTON
+   ============================================ */
+
+.back-btn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text-cream);
+    padding: 12px 24px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    z-index: 100;
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(196, 224, 249, 0.2);
+}
+
+.back-btn:hover {
+    transform: translateX(-5px);
+    background: rgba(196, 224, 249, 0.15);
+    box-shadow: 0 4px 25px rgba(133, 193, 233, 0.3);
+}
+
+/* ============================================
+   MAIN CONTAINER
+   ============================================ */
+
+.promiseday-container {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    padding: 3rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* ============================================
+   TITLE SECTION
+   ============================================ */
+
+.title-section {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    animation: fadeInDown 1s ease forwards;
+}
+
+.promise-icon {
+    font-size: 5rem;
+    margin-bottom: 1rem;
+    animation: oceanWave 3s ease-in-out infinite;
+    filter: drop-shadow(0 4px 12px rgba(133, 193, 233, 0.4));
+}
+
+@keyframes oceanWave {
+    0%, 100% { transform: rotate(-3deg) scale(1) translateY(0); }
+    25% { transform: rotate(3deg) scale(1.05) translateY(-5px); }
+    50% { transform: rotate(-2deg) scale(1) translateY(3px); }
+    75% { transform: rotate(2deg) scale(1.03) translateY(-3px); }
+}
+
+.promiseday-title {
+    font-size: 4rem;
+    background: linear-gradient(135deg, var(--moonstone), var(--aqua-light), var(--moonstone-glow));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    text-shadow: none;
+}
+
+.subtitle {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.4rem;
+    color: var(--pearl-shimmer);
+    font-weight: 500;
+}
+
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================
+   PENDANT SHOWCASE
+   ============================================ */
+
+.pendant-showcase {
+    text-align: center;
+    margin-bottom: 2rem;
+    animation: fadeInUp 1s ease forwards;
+    animation-delay: 0.3s;
+    opacity: 0;
+}
+
+.pendant-display {
+    position: relative;
+    display: inline-block;
+    padding: 2.5rem;
+    padding-top: 1rem;
+}
+
+/* Chain links */
+.pendant-chain {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 0.5rem;
+}
+
+.chain-link {
+    width: 8px;
+    height: 14px;
+    border: 2px solid rgba(196, 224, 249, 0.5);
+    border-radius: 50%;
+    animation: chainSwing 3s ease-in-out infinite;
+}
+
+.chain-link:nth-child(odd) {
+    width: 6px;
+    height: 12px;
+}
+
+@keyframes chainSwing {
+    0%, 100% { transform: rotate(-2deg); }
+    50% { transform: rotate(2deg); }
+}
+
+/* Pendant body - fish with moonstone */
+.pendant-body {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: pendantSway 4s ease-in-out infinite;
+}
+
+@keyframes pendantSway {
+    0%, 100% { transform: rotate(-3deg) translateY(0); }
+    25% { transform: rotate(2deg) translateY(-3px); }
+    50% { transform: rotate(-2deg) translateY(2px); }
+    75% { transform: rotate(3deg) translateY(-2px); }
+}
+
+.fish-emoji {
+    font-size: 6rem;
+    display: block;
+    filter: drop-shadow(0 0 20px rgba(133, 193, 233, 0.5));
+    animation: fishSwim 3s ease-in-out infinite;
+    transform: scaleX(-1);
+}
+
+@keyframes fishSwim {
+    0%, 100% {
+        transform: scaleX(-1) translateX(0);
+        filter: drop-shadow(0 0 20px rgba(133, 193, 233, 0.4));
+    }
+    50% {
+        transform: scaleX(-1) translateX(5px);
+        filter: drop-shadow(0 0 35px rgba(133, 193, 233, 0.7)) brightness(1.1);
+    }
+}
+
+.moonstone {
+    font-size: 3.5rem;
+    position: absolute;
+    left: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    animation: moonstoneGlow 3s ease-in-out infinite;
+    filter: drop-shadow(0 0 15px rgba(196, 224, 249, 0.8));
+}
+
+@keyframes moonstoneGlow {
+    0%, 100% {
+        filter: drop-shadow(0 0 15px rgba(196, 224, 249, 0.6));
+        transform: translateY(-50%) scale(1);
+    }
+    50% {
+        filter: drop-shadow(0 0 30px rgba(196, 224, 249, 1)) drop-shadow(0 0 50px rgba(72, 201, 176, 0.4));
+        transform: translateY(-50%) scale(1.08);
+    }
+}
+
+/* Concentric glow rings behind the pendant */
+.pendant-glow-ring {
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    border: 2px solid rgba(196, 224, 249, 0.15);
+    animation: ringPulse 3.5s ease-in-out infinite;
+    z-index: -1;
+}
+
+.pendant-glow-ring:nth-child(1) {
+    width: 140px; height: 140px;
+    animation-delay: 0s;
+}
+.pendant-glow-ring:nth-child(2) {
+    width: 200px; height: 200px;
+    border-color: rgba(72, 201, 176, 0.1);
+    animation-delay: 0.6s;
+}
+.pendant-glow-ring:nth-child(3) {
+    width: 260px; height: 260px;
+    border-color: rgba(133, 193, 233, 0.06);
+    animation-delay: 1.2s;
+}
+
+@keyframes ringPulse {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+    50% { transform: translate(-50%, -50%) scale(1.15); opacity: 1; }
+}
+
+.pendant-label {
+    font-size: 1.8rem;
+    color: var(--moonstone);
+    margin-top: 1rem;
+    font-weight: 600;
+    text-shadow: 0 0 20px rgba(196, 224, 249, 0.4);
+}
+
+.pendant-sublabel {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.1rem;
+    color: var(--pearl-shimmer);
+    margin-top: 0.5rem;
+    font-style: italic;
+    opacity: 0.8;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ============================================
+   WHALE SECTION
+   ============================================ */
+
+.whale-section {
+    position: relative;
+    width: 100%;
+    max-width: 700px;
+    height: 80px;
+    margin-bottom: 1.5rem;
+    overflow: visible;
+}
+
+.whale {
+    position: absolute;
+    font-size: 3.5rem;
+    filter: drop-shadow(0 4px 15px rgba(133, 193, 233, 0.3));
+}
+
+.whale-left {
+    left: 5%;
+    top: 10px;
+    animation: whaleSwimLeft 10s ease-in-out infinite;
+}
+
+.whale-right {
+    right: 5%;
+    top: 20px;
+    animation: whaleSwimRight 12s ease-in-out infinite;
+    transform: scaleX(-1);
+}
+
+@keyframes whaleSwimLeft {
+    0%, 100% {
+        transform: translateX(0) translateY(0) rotate(0deg);
+    }
+    25% {
+        transform: translateX(30px) translateY(-10px) rotate(3deg);
+    }
+    50% {
+        transform: translateX(15px) translateY(5px) rotate(-2deg);
+    }
+    75% {
+        transform: translateX(-10px) translateY(-5px) rotate(2deg);
+    }
+}
+
+@keyframes whaleSwimRight {
+    0%, 100% {
+        transform: scaleX(-1) translateX(0) translateY(0) rotate(0deg);
+    }
+    25% {
+        transform: scaleX(-1) translateX(-25px) translateY(-8px) rotate(-3deg);
+    }
+    50% {
+        transform: scaleX(-1) translateX(-10px) translateY(8px) rotate(2deg);
+    }
+    75% {
+        transform: scaleX(-1) translateX(15px) translateY(-3px) rotate(-1deg);
+    }
+}
+
+/* ============================================
+   MESSAGE CARD
+   ============================================ */
+
+.message-card {
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 30px;
+    padding: 3rem;
+    max-width: 700px;
+    width: 100%;
+    box-shadow:
+        0 10px 40px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    transition: all 0.4s ease;
+    animation: fadeInUp 1s ease forwards;
+    animation-delay: 0.6s;
+    opacity: 0;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(196, 224, 249, 0.12);
+}
+
+.message-card::before {
+    content: '🐚';
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    font-size: 2rem;
+    opacity: 0.3;
+    animation: oceanWave 4s ease-in-out infinite;
+}
+
+.message-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg,
+        transparent,
+        var(--moonstone),
+        var(--aqua),
+        var(--moonstone),
+        transparent);
+    background-size: 200% 100%;
+    animation: shimmerBar 4s linear infinite;
+}
+
+@keyframes shimmerBar {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+.message-card:hover {
+    transform: translateY(-5px);
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.4),
+        0 0 40px rgba(133, 193, 233, 0.1);
+    border-color: rgba(196, 224, 249, 0.25);
+}
+
+.message-greeting {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.2rem;
+    color: var(--moonstone);
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    text-shadow: 0 0 15px rgba(196, 224, 249, 0.3);
+}
+
+.message-content { text-align: left; }
+
+.message-paragraph {
+    font-size: 1.15rem;
+    color: var(--text-cream);
+    line-height: 1.9;
+    margin-bottom: 1.2rem;
+    opacity: 0;
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+.message-paragraph:nth-child(1) { animation-delay: 0.8s; }
+.message-paragraph:nth-child(2) { animation-delay: 1s; }
+.message-paragraph:nth-child(3) { animation-delay: 1.2s; }
+.message-paragraph:nth-child(4) { animation-delay: 1.4s; }
+.message-paragraph:nth-child(5) { animation-delay: 1.6s; }
+.message-paragraph:nth-child(6) { animation-delay: 1.8s; }
+.message-paragraph:nth-child(7) { animation-delay: 2.8s; }
+.message-paragraph:nth-child(8) { animation-delay: 3s; }
+
+.message-paragraph:last-child {
+    font-style: italic;
+    color: var(--moonstone);
+    font-weight: 500;
+    text-align: center;
+    margin-bottom: 0;
+}
+
+.highlight {
+    color: var(--aqua-light);
+    font-weight: 600;
+    text-shadow: 0 0 8px rgba(72, 201, 176, 0.3);
+}
+
+/* ============================================
+   PROMISES LIST
+   ============================================ */
+
+.promises-list {
+    margin: 1.5rem 0;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 20px;
+    border: 1px solid rgba(196, 224, 249, 0.1);
+    opacity: 0;
+    animation: fadeInUp 0.8s ease forwards;
+    animation-delay: 2s;
+}
+
+.promise-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid rgba(196, 224, 249, 0.06);
+    transition: all 0.3s ease;
+}
+
+.promise-item:last-child {
+    border-bottom: none;
+}
+
+.promise-item:hover {
+    transform: translateX(5px);
+    background: rgba(196, 224, 249, 0.05);
+    border-radius: 10px;
+    padding-left: 0.5rem;
+}
+
+.promise-emoji {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    animation: promiseFloat 3s ease-in-out infinite;
+}
+
+.promise-item:nth-child(1) .promise-emoji { animation-delay: 0s; }
+.promise-item:nth-child(2) .promise-emoji { animation-delay: 0.3s; }
+.promise-item:nth-child(3) .promise-emoji { animation-delay: 0.6s; }
+.promise-item:nth-child(4) .promise-emoji { animation-delay: 0.9s; }
+.promise-item:nth-child(5) .promise-emoji { animation-delay: 1.2s; }
+.promise-item:nth-child(6) .promise-emoji { animation-delay: 1.5s; }
+
+@keyframes promiseFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+}
+
+.promise-item p {
+    font-size: 1.05rem;
+    color: var(--text-cream);
+    line-height: 1.7;
+    margin: 0;
+}
+
+/* ============================================
+   SIGNATURE SECTION
+   ============================================ */
+
+.signature-section {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(196, 224, 249, 0.15);
+    animation: fadeInUp 0.8s ease forwards;
+    animation-delay: 3.2s;
+    opacity: 0;
+}
+
+.signature {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.5rem;
+    color: var(--moonstone);
+    font-weight: 600;
+}
+
+.signature-heart {
+    font-size: 1.8rem;
+    display: inline-block;
+    animation: shellBob 2s ease-in-out infinite;
+    margin-left: 0.5rem;
+}
+
+@keyframes shellBob {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    25% { transform: scale(1.1) rotate(5deg); }
+    50% { transform: scale(1) rotate(0deg); }
+    75% { transform: scale(1.15) rotate(-5deg); }
+}
+
+/* ============================================
+   FOOTER MESSAGE
+   ============================================ */
+
+.footer-message {
+    text-align: center;
+    margin-top: 3rem;
+    animation: fadeInUp 1s ease forwards;
+    animation-delay: 3.4s;
+    opacity: 0;
+}
+
+.footer-message p {
+    font-size: 1.3rem;
+    color: var(--text-cream);
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.06);
+    padding: 1rem 2.5rem;
+    border-radius: 50px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    display: inline-block;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(196, 224, 249, 0.12);
+}
+
+/* ============================================
+   FADE IN ANIMATIONS
+   ============================================ */
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================
+   MOBILE RESPONSIVENESS
+   ============================================ */
+
+@media (max-width: 768px) {
+    .promiseday-container { padding: 2rem 1rem; }
+    .promise-icon { font-size: 3.5rem; }
+    .promiseday-title { font-size: 2.5rem; }
+    .subtitle { font-size: 1.1rem; }
+    .fish-emoji { font-size: 4rem; }
+    .moonstone { font-size: 2.5rem; left: -5px; }
+    .pendant-label { font-size: 1.4rem; }
+    .pendant-sublabel { font-size: 0.95rem; }
+    .message-card { padding: 2rem 1.5rem; border-radius: 25px; }
+    .message-greeting { font-size: 1.6rem; }
+    .message-paragraph { font-size: 1rem; line-height: 1.8; }
+    .back-btn { top: 10px; left: 10px; padding: 10px 18px; font-size: 0.9rem; }
+    .footer-message p { font-size: 1.1rem; padding: 0.8rem 1.5rem; }
+    .pendant-glow-ring:nth-child(1) { width: 100px; height: 100px; }
+    .pendant-glow-ring:nth-child(2) { width: 150px; height: 150px; }
+    .pendant-glow-ring:nth-child(3) { width: 200px; height: 200px; }
+    .whale { font-size: 2.5rem; }
+    .whale-section { height: 60px; }
+    .promises-list { padding: 1rem; }
+    .promise-item { gap: 0.7rem; padding: 0.6rem 0; }
+    .promise-emoji { font-size: 1.3rem; }
+    .promise-item p { font-size: 0.95rem; }
+}
+
+@media (max-width: 480px) {
+    .promiseday-title { font-size: 2rem; }
+    .subtitle { font-size: 1rem; }
+    .fish-emoji { font-size: 3.5rem; }
+    .moonstone { font-size: 2rem; }
+    .pendant-label { font-size: 1.2rem; }
+    .pendant-sublabel { font-size: 0.85rem; }
+    .message-card { padding: 1.5rem 1.2rem; }
+    .message-greeting { font-size: 1.4rem; }
+    .message-paragraph { font-size: 0.95rem; }
+    .whale { font-size: 2rem; }
+    .whale-section { height: 50px; }
+    .promise-item p { font-size: 0.9rem; }
+}
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .floating-item,
+    .bubble,
+    .pearl {
+        display: none;
+    }
+}

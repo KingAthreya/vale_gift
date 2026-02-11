@@ -170,11 +170,11 @@ function startConfettiRain() {
 
 /**
  * Handles "Unlock Gift" button click
- * Navigates to Teddy Day gift page (current day)
+ * Navigates to Promise Day gift page (current day)
  */
 function handleGiftClick() {
-    // Navigate to Teddy Day page (current unlockable day)
-    window.location.href = 'teddyday.html';
+    // Navigate to Promise Day page (current unlockable day)
+    window.location.href = 'promiseday.html';
 }
 
 // ============================================
