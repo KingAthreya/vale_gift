@@ -231,17 +231,17 @@ function initEffects() {
         setTimeout(createLightParticle, i * 200);
     }
 
-    // Continuous floating items
-    setInterval(createFloatingItem, 2200);
+    // Continuous floating items (reduced frequency for smoothness)
+    setInterval(createFloatingItem, 3000);
 
     // Continuous bubbles
-    setInterval(createBubble, 1200);
+    setInterval(createBubble, 1800);
 
     // Continuous pearls
-    setInterval(createPearl, 3000);
+    setInterval(createPearl, 4000);
 
     // Continuous light particles
-    setInterval(createLightParticle, 1500);
+    setInterval(createLightParticle, 2500);
 
     // Occasional whale swim-by (every 20-40 seconds)
     function scheduleWhale() {
@@ -337,24 +337,41 @@ function initTouchInteraction() {
 }
 
 // ============================================
-// CLICK INTERACTION - FISH SWIM AWAY + RIPPLE
+// CLICK INTERACTION - FISH SWIM AWAY + BUBBLES
 // ============================================
 
 const clickFishEmojis = ['🐟', '🐠', '🐡', '🐟', '🐠'];
 
 /**
- * Creates a water ripple effect at click position
+ * Creates natural ocean bubbles rising from click position
  */
-function createRipple(x, y) {
-    for (let i = 0; i < 3; i++) {
-        const ripple = document.createElement('div');
-        ripple.classList.add('water-ripple');
-        ripple.style.left = x + 'px';
-        ripple.style.top = y + 'px';
-        ripple.style.animationDelay = (i * 0.2) + 's';
-        document.body.appendChild(ripple);
+function createClickBubbles(x, y) {
+    const count = Math.floor(Math.random() * 4) + 5; // 5-8 bubbles
+    for (let i = 0; i < count; i++) {
+        const delay = i * 60 + Math.random() * 80;
+        setTimeout(() => {
+            const bubble = document.createElement('div');
+            bubble.classList.add('click-bubble');
 
-        setTimeout(() => { ripple.remove(); }, 1500);
+            const size = Math.random() * 14 + 5;
+            const offsetX = (Math.random() - 0.5) * 50;
+            const riseHeight = Math.random() * 120 + 80;
+            const wobble = (Math.random() - 0.5) * 40;
+            const duration = Math.random() * 0.8 + 1.0;
+
+            bubble.style.cssText = `
+                left: ${x + offsetX}px;
+                top: ${y}px;
+                width: ${size}px;
+                height: ${size}px;
+                --rise: ${riseHeight}px;
+                --wobble: ${wobble}px;
+                animation-duration: ${duration}s;
+            `;
+
+            floatsContainer.appendChild(bubble);
+            setTimeout(() => { bubble.remove(); }, duration * 1000 + 100);
+        }, delay);
     }
 }
 
@@ -364,68 +381,45 @@ function createRipple(x, y) {
 function createSwimAwayFish(x, y) {
     const fish = document.createElement('div');
     const emoji = clickFishEmojis[Math.floor(Math.random() * clickFishEmojis.length)];
-    
-    // Random swim direction
-    const angle = Math.random() * Math.PI * 2;
-    const distance = Math.random() * 200 + 150;
-    const endX = Math.cos(angle) * distance;
-    const endY = Math.sin(angle) * distance;
-    const flipX = endX > 0 ? 1 : -1;
-    
+
+    // Random swim direction (mostly horizontal with slight vertical)
+    const goRight = Math.random() > 0.5;
+    const distX = (Math.random() * 180 + 120) * (goRight ? 1 : -1);
+    const distY = (Math.random() - 0.5) * 100;
+    const flipX = goRight ? 1 : -1;
+    const duration = Math.random() * 0.4 + 1.0;
+
     fish.textContent = emoji;
     fish.classList.add('swim-away-fish');
-    fish.style.left = x + 'px';
-    fish.style.top = y + 'px';
-    fish.style.setProperty('--swim-x', endX + 'px');
-    fish.style.setProperty('--swim-y', endY + 'px');
-    fish.style.setProperty('--flip', flipX);
-    
-    document.body.appendChild(fish);
+    fish.style.cssText = `
+        left: ${x}px;
+        top: ${y}px;
+        --swim-x: ${distX}px;
+        --swim-y: ${distY}px;
+        --flip: ${flipX};
+        animation-duration: ${duration}s;
+    `;
 
-    setTimeout(() => { fish.remove(); }, 1200);
+    floatsContainer.appendChild(fish);
+    setTimeout(() => { fish.remove(); }, duration * 1000 + 100);
 }
 
 /**
- * Creates small bubbles trailing behind the fish
- */
-function createFishBubbles(x, y) {
-    for (let i = 0; i < 4; i++) {
-        setTimeout(() => {
-            const bubble = document.createElement('div');
-            bubble.classList.add('click-bubble');
-            bubble.style.left = (x + (Math.random() - 0.5) * 30) + 'px';
-            bubble.style.top = (y + (Math.random() - 0.5) * 30) + 'px';
-            
-            const size = Math.random() * 8 + 4;
-            bubble.style.width = size + 'px';
-            bubble.style.height = size + 'px';
-            
-            document.body.appendChild(bubble);
-            
-            setTimeout(() => { bubble.remove(); }, 1000);
-        }, i * 80);
-    }
-}
-
-/**
- * Initialize click interaction for fish + ripple
+ * Initialize click interaction for fish + natural bubbles
  */
 function initClickInteraction() {
     document.addEventListener('click', (e) => {
         // Don't trigger on links or buttons
         if (e.target.closest('a') || e.target.closest('button')) return;
-        
+
         const x = e.clientX;
         const y = e.clientY;
-        
-        // Create water ripple
-        createRipple(x, y);
-        
+
+        // Create natural rising bubbles
+        createClickBubbles(x, y);
+
         // Create swimming fish
         createSwimAwayFish(x, y);
-        
-        // Create trailing bubbles
-        createFishBubbles(x, y);
     });
 }
 

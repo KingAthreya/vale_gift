@@ -184,6 +184,7 @@ body::before {
     opacity: 0.7;
     animation: floatOcean var(--float-duration) linear infinite;
     user-select: none;
+    will-change: transform, opacity;
 }
 
 @keyframes floatOcean {
@@ -214,6 +215,7 @@ body::before {
     );
     border: 1px solid rgba(255, 255, 255, 0.15);
     animation: bubbleRise 10s ease-in-out infinite;
+    will-change: transform, opacity;
 }
 
 @keyframes bubbleRise {
@@ -843,98 +845,79 @@ body::before {
 }
 
 /* ============================================
-   CLICK INTERACTION - FISH SWIM AWAY + RIPPLE
+   CLICK INTERACTION - FISH SWIM AWAY + BUBBLES
    ============================================ */
-
-/* Water ripple on click */
-.water-ripple {
-    position: fixed;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    border: 2px solid rgba(196, 224, 249, 0.6);
-    transform: translate(-50%, -50%) scale(0);
-    animation: rippleExpand 1.2s ease-out forwards;
-    pointer-events: none;
-    z-index: 60;
-}
-
-@keyframes rippleExpand {
-    0% {
-        transform: translate(-50%, -50%) scale(0);
-        opacity: 1;
-        border-width: 3px;
-    }
-    50% {
-        opacity: 0.6;
-        border-width: 2px;
-    }
-    100% {
-        transform: translate(-50%, -50%) scale(12);
-        opacity: 0;
-        border-width: 0.5px;
-    }
-}
 
 /* Fish that swims away on click */
 .swim-away-fish {
     position: fixed;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     pointer-events: none;
     z-index: 55;
+    will-change: transform, opacity;
     transform: translate(-50%, -50%) scaleX(var(--flip, 1));
-    animation: fishSwimAway 1.2s ease-out forwards;
-    filter: drop-shadow(0 0 8px rgba(133, 193, 233, 0.5));
+    animation: fishSwimAway 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    filter: drop-shadow(0 0 6px rgba(133, 193, 233, 0.4));
 }
 
 @keyframes fishSwimAway {
     0% {
-        transform: translate(-50%, -50%) scaleX(var(--flip, 1)) scale(0.3);
+        transform: translate(-50%, -50%) scaleX(var(--flip, 1)) scale(0.2);
         opacity: 0;
     }
-    15% {
-        transform: translate(-50%, -50%) scaleX(var(--flip, 1)) scale(1.2);
+    12% {
+        transform: translate(-50%, -50%) scaleX(var(--flip, 1)) scale(1.1);
         opacity: 1;
     }
-    30% {
+    25% {
         transform: translate(-50%, -50%) scaleX(var(--flip, 1)) scale(1);
+        opacity: 0.9;
     }
     100% {
         transform: translate(
             calc(-50% + var(--swim-x, 100px)),
-            calc(-50% + var(--swim-y, -80px))
-        ) scaleX(var(--flip, 1)) scale(0.4) rotate(10deg);
+            calc(-50% + var(--swim-y, -50px))
+        ) scaleX(var(--flip, 1)) scale(0.5);
         opacity: 0;
     }
 }
 
-/* Small bubbles trailing behind fish */
+/* Natural ocean bubbles rising from click */
 .click-bubble {
     position: fixed;
     border-radius: 50%;
     background: radial-gradient(
         circle at 30% 30%,
-        rgba(255, 255, 255, 0.4),
-        rgba(196, 224, 249, 0.2),
+        rgba(255, 255, 255, 0.35),
+        rgba(196, 224, 249, 0.15),
         transparent
     );
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.18);
     pointer-events: none;
     z-index: 55;
-    transform: translate(-50%, -50%);
-    animation: clickBubbleFloat 0.9s ease-out forwards;
+    will-change: transform, opacity;
+    transform: translate(-50%, -50%) scale(0.3);
+    animation: naturalBubbleRise 1.2s cubic-bezier(0.2, 0.8, 0.3, 1) forwards;
 }
 
-@keyframes clickBubbleFloat {
+@keyframes naturalBubbleRise {
     0% {
-        transform: translate(-50%, -50%) scale(0.3);
-        opacity: 0.9;
+        transform: translate(-50%, 0) scale(0.3);
+        opacity: 0;
     }
-    50% {
-        opacity: 0.6;
+    10% {
+        opacity: 0.8;
+    }
+    30% {
+        transform: translate(calc(-50% + var(--wobble, 10px) * 0.4), calc(var(--rise, 80px) * -0.3)) scale(0.8);
+        opacity: 0.7;
+    }
+    60% {
+        transform: translate(calc(-50% + var(--wobble, 10px) * -0.6), calc(var(--rise, 80px) * -0.6)) scale(1);
+        opacity: 0.5;
     }
     100% {
-        transform: translate(-50%, calc(-50% - 50px)) scale(1);
+        transform: translate(calc(-50% + var(--wobble, 10px)), calc(var(--rise, 80px) * -1)) scale(1.1);
         opacity: 0;
     }
 }
