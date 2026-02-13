@@ -392,17 +392,6 @@ body {
     z-index: 18;
 }
 
-.message-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--venom-purple), var(--kiss-pink), var(--venom-purple));
-    animation: borderGlow 3s linear infinite;
-}
-
 .message-greeting {
     font-size: 1.9rem;
     font-weight: normal;
