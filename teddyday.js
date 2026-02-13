@@ -166,9 +166,135 @@ function initMouseInteraction() {
     });
 }
 
+// ============================================
+// CLICK INTERACTION - TEDDY BURST
+// ============================================
+
+/**
+ * Creates a teddy burst effect on click
+ */
+function createTeddyBurst(x, y) {
+    const teddies = ['🧸', '🐼', '🐻', '💛', '⭐', '✨'];
+    const count = Math.floor(Math.random() * 4) + 5;
+    
+    for (let i = 0; i < count; i++) {
+        setTimeout(() => {
+            const teddy = document.createElement('div');
+            const emoji = teddies[Math.floor(Math.random() * teddies.length)];
+            const angle = (Math.PI * 2 / count) * i + Math.random() * 0.5;
+            const distance = Math.random() * 60 + 30;
+            const duration = Math.random() * 0.4 + 0.6;
+
+            teddy.textContent = emoji;
+            teddy.style.cssText = `
+                position: fixed;
+                left: ${x}px;
+                top: ${y}px;
+                font-size: 1.5rem;
+                pointer-events: none;
+                z-index: 55;
+                will-change: transform, opacity;
+                animation: teddyBurst ${duration}s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+                --burst-x: ${Math.cos(angle) * distance}px;
+                --burst-y: ${Math.sin(angle) * distance}px;
+            `;
+
+            floatsContainer.appendChild(teddy);
+            setTimeout(() => { teddy.remove(); }, duration * 1000 + 100);
+        }, i * 40);
+    }
+}
+
+/**
+ * Creates warm sparkles on click
+ */
+function createWarmSparkles(x, y) {
+    for (let i = 0; i < 6; i++) {
+        setTimeout(() => {
+            const sparkle = document.createElement('div');
+            const size = Math.random() * 8 + 4;
+            const offsetX = (Math.random() - 0.5) * 50;
+            const offsetY = (Math.random() - 0.5) * 50;
+            const hue = Math.random() > 0.5 ? '45' : '30';
+
+            sparkle.style.cssText = `
+                position: fixed;
+                left: ${x + offsetX}px;
+                top: ${y + offsetY}px;
+                width: ${size}px;
+                height: ${size}px;
+                border-radius: 50%;
+                background: hsl(${hue}, 100%, 70%);
+                box-shadow: 0 0 ${size * 2}px ${size}px hsla(${hue}, 100%, 70%, 0.5);
+                pointer-events: none;
+                z-index: 55;
+                will-change: transform, opacity;
+                animation: warmSparkle 0.7s ease-out forwards;
+            `;
+
+            floatsContainer.appendChild(sparkle);
+            setTimeout(() => { sparkle.remove(); }, 700);
+        }, i * 50);
+    }
+}
+
+/**
+ * Initialize click interaction
+ */
+function initClickInteraction() {
+    // Inject keyframes for click effects
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes teddyBurst {
+            0% {
+                transform: translate(-50%, -50%) scale(0.3) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(
+                    calc(-50% + var(--burst-x, 40px)),
+                    calc(-50% + var(--burst-y, 40px))
+                ) scale(0.6) rotate(20deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes warmSparkle {
+            0% {
+                transform: scale(0.3);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 0.8;
+            }
+            100% {
+                transform: scale(0) translateY(-20px);
+                opacity: 0;
+            }
+        }
+    `;
+    document.head.appendChild(style);
+
+    document.addEventListener('click', (e) => {
+        // Don't trigger on links or buttons
+        if (e.target.closest('a') || e.target.closest('button')) return;
+
+        const x = e.clientX;
+        const y = e.clientY;
+
+        // Create teddy burst
+        createTeddyBurst(x, y);
+
+        // Create warm sparkles
+        createWarmSparkles(x, y);
+    });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     initEffects();
     initMouseInteraction();
+    initClickInteraction();
 
     console.log('🐼 Teddy Day page initialized!');
     console.log('Happy Teddy Day! 💛');

@@ -1,6 +1,6 @@
 /* ============================================
    VALENTINE PROPOSAL - STYLESHEET
-   Soft pastel romantic theme
+   Enhanced romantic theme with animations
    ============================================ */
 
 /* CSS Variables for consistent theming */
@@ -15,6 +15,8 @@
     --white: #ffffff;
     --text-dark: #5a3d5c;
     --text-light: #8b6b8c;
+    --gold: #ffd700;
+    --purple: #9b59b6;
     
     /* Animation timings */
     --fade-duration: 1s;
@@ -31,16 +33,93 @@
 
 /* Body styling with gradient background */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Quicksand', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     min-height: 100vh;
     background: linear-gradient(
         135deg,
-        var(--cream) 0%,
-        var(--light-pink) 50%,
-        var(--soft-pink) 100%
+        #fff5f5 0%,
+        #ffe4e1 25%,
+        #ffc0cb 50%,
+        #ffb6c1 75%,
+        #fff0f5 100%
     );
+    background-size: 400% 400%;
+    animation: gradientFlow 15s ease infinite;
     overflow-x: hidden;
     position: relative;
+}
+
+@keyframes gradientFlow {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+/* ============================================
+   ANIMATED BACKGROUND PARTICLES
+   ============================================ */
+
+.bg-particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.particle {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: particleFloat 20s linear infinite;
+}
+
+@keyframes particleFloat {
+    0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+    }
+    10% { opacity: 0.6; }
+    90% { opacity: 0.6; }
+    100% {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* ============================================
+   FLOATING DECORATIONS
+   ============================================ */
+
+.floating-decorations {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.decoration {
+    position: absolute;
+    font-size: 1.5rem;
+    opacity: 0.4;
+    animation: decoFloat 10s ease-in-out infinite;
+}
+
+.deco-1 { top: 10%; left: 5%; animation-delay: 0s; }
+.deco-2 { top: 20%; right: 10%; animation-delay: 2s; }
+.deco-3 { top: 60%; left: 8%; animation-delay: 4s; }
+.deco-4 { top: 75%; right: 5%; animation-delay: 6s; }
+.deco-5 { top: 40%; left: 3%; animation-delay: 8s; }
+
+@keyframes decoFloat {
+    0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.3; }
+    50% { transform: translateY(-20px) rotate(10deg); opacity: 0.6; }
 }
 
 /* ============================================
@@ -62,6 +141,7 @@ body {
     z-index: 1000;
     animation: slideInRight 0.8s ease forwards;
     backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 182, 193, 0.3);
 }
 
 /* Slide in animation */
@@ -177,24 +257,47 @@ body {
     .music-player {
         top: 10px;
         right: 10px;
-        padding: 10px 15px;
+        padding: 8px 12px;
         gap: 8px;
+        max-width: 200px;
     }
     
     .music-icon {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
     }
     
     .music-title {
-        font-size: 0.8rem;
+        font-size: 0.75rem;
     }
     
     .music-label {
-        font-size: 0.6rem;
+        font-size: 0.55rem;
     }
     
     .music-visualizer {
         display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .music-player {
+        top: 8px;
+        right: 8px;
+        padding: 6px 10px;
+        gap: 6px;
+        max-width: 160px;
+    }
+    
+    .music-icon {
+        font-size: 1rem;
+    }
+    
+    .music-title {
+        font-size: 0.7rem;
+    }
+    
+    .music-label {
+        font-size: 0.5rem;
     }
 }
 
@@ -256,17 +359,202 @@ body {
     align-items: center;
     text-align: center;
     padding: 2rem;
+    padding-top: 3rem;
 }
 
-/* Decorative top heart */
-.top-heart {
-    font-size: 4rem;
+/* ============================================
+   HERO SECTION
+   ============================================ */
+
+.hero-section {
+    text-align: center;
+    margin-bottom: 2rem;
+    animation: fadeInDown 1s ease forwards;
+    animation-delay: 0.2s;
+    opacity: 0;
+}
+
+.heart-container {
+    position: relative;
+    display: inline-block;
     margin-bottom: 1.5rem;
-    animation: pulse 2s ease-in-out infinite;
 }
 
-/* Pulse animation for decorative elements */
-@keyframes pulse {
+.heart-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    border: 2px solid rgba(255, 105, 180, 0.3);
+    animation: ringPulse 2s ease-in-out infinite;
+    opacity: 0;
+    animation: ringAppear 0.8s ease forwards, ringPulse 2s ease-in-out infinite;
+}
+
+.ring-1 {
+    width: 100px;
+    height: 100px;
+    animation-delay: 0.4s, 0.4s;
+}
+
+.ring-2 {
+    width: 140px;
+    height: 140px;
+    animation-delay: 0.6s, 0.6s;
+    border-color: rgba(255, 105, 180, 0.2);
+}
+
+.ring-3 {
+    width: 180px;
+    height: 180px;
+    animation-delay: 0.8s, 0.8s;
+    border-color: rgba(255, 105, 180, 0.1);
+}
+
+@keyframes ringAppear {
+    0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+    100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+}
+
+@keyframes ringPulse {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+    50% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+}
+
+.success-heart {
+    font-size: 5rem;
+    animation: heartAppear 0.6s ease forwards, heartbeat 1s ease-in-out infinite;
+    animation-delay: 0.3s, 0.9s;
+    position: relative;
+    z-index: 1;
+    opacity: 0;
+}
+
+@keyframes heartAppear {
+    0% { transform: scale(0); opacity: 0; }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    25% { transform: scale(1.1); }
+    50% { transform: scale(1); }
+    75% { transform: scale(1.15); }
+}
+
+.hero-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 4rem;
+    background: linear-gradient(135deg, var(--deep-rose), var(--rose-pink), var(--primary-pink));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+    opacity: 0;
+    animation: titleAppear 0.8s ease forwards, titleGlow 3s ease-in-out infinite;
+    animation-delay: 0.6s, 0.6s;
+}
+
+@keyframes titleAppear {
+    0% { transform: translateY(20px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes titleGlow {
+    0%, 100% { filter: drop-shadow(0 0 10px rgba(255, 20, 147, 0.3)); }
+    50% { filter: drop-shadow(0 0 20px rgba(255, 105, 180, 0.5)); }
+}
+
+.hero-subtitle {
+    font-size: 1.3rem;
+    color: var(--text-dark);
+    font-weight: 500;
+    opacity: 0;
+    animation: fadeInUp 0.8s ease forwards;
+    animation-delay: 0.9s;
+}
+
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================
+   LOVE MESSAGE CARD
+   ============================================ */
+
+.love-message-card {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 30px;
+    padding: 2.5rem;
+    max-width: 500px;
+    margin-bottom: 2rem;
+    box-shadow: 
+        0 10px 40px rgba(255, 105, 180, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    position: relative;
+    animation: cardAppear 0.8s ease forwards;
+    animation-delay: 1.2s;
+    opacity: 0;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 182, 193, 0.3);
+}
+
+@keyframes cardAppear {
+    0% { transform: translateY(30px) scale(0.95); opacity: 0; }
+    100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+.card-decoration {
+    position: absolute;
+    font-size: 1.5rem;
+    opacity: 0;
+    animation: decorationAppear 0.5s ease forwards, decorationPulse 2s ease-in-out infinite;
+}
+
+.top-left { top: 15px; left: 20px; animation-delay: 1.5s, 1.5s; }
+.top-right { top: 15px; right: 20px; animation-delay: 1.7s, 1.7s; }
+.bottom-left { bottom: 15px; left: 20px; animation-delay: 1.9s, 1.9s; }
+.bottom-right { bottom: 15px; right: 20px; animation-delay: 2.1s, 2.1s; }
+
+@keyframes decorationAppear {
+    0% { transform: scale(0); opacity: 0; }
+    100% { transform: scale(1); opacity: 0.4; }
+}
+
+@keyframes decorationPulse {
+    0%, 100% { transform: scale(1); opacity: 0.4; }
+    50% { transform: scale(1.2); opacity: 0.7; }
+}
+
+.mine-text {
+    font-size: 1.3rem;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+    font-style: italic;
+    opacity: 0;
+    animation: fadeInUp 0.6s ease forwards;
+    animation-delay: 1.4s;
+}
+
+/* Highlighted "MINE" text */
+.mine-text .highlight {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--deep-rose), var(--rose-pink));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    animation: pulseText 1.5s ease-in-out infinite;
+}
+
+/* Pulsing animation for "MINE" text */
+@keyframes pulseText {
     0%, 100% {
         transform: scale(1);
     }
@@ -275,69 +563,68 @@ body {
     }
 }
 
-/* ============================================
-   TYPOGRAPHY & TEXT ANIMATIONS
-   ============================================ */
-
-/* Main question text */
-.question-text {
-    font-size: 3rem;
+.surprise-text {
+    font-size: 1.1rem;
     color: var(--text-dark);
-    font-weight: 700;
-    line-height: 1.3;
     margin-bottom: 1rem;
-    text-shadow: 2px 2px 4px rgba(255, 182, 193, 0.3);
-}
-
-/* Highlighted "Valentine" text */
-.valentine-text {
-    display: block;
-    font-size: 4rem;
-    background: linear-gradient(135deg, var(--rose-pink), var(--deep-rose));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin-top: 0.5rem;
-}
-
-/* Subtitle text */
-.subtitle {
-    font-size: 1.3rem;
-    color: var(--text-light);
-    margin-bottom: 3rem;
-    font-style: italic;
-}
-
-/* ============================================
-   FADE-IN ANIMATIONS
-   ============================================ */
-
-/* Base fade-in class */
-.fade-in {
+    line-height: 1.6;
     opacity: 0;
-    transform: translateY(30px);
-    animation: fadeInUp var(--fade-duration) ease forwards;
+    animation: fadeInUp 0.6s ease forwards;
+    animation-delay: 1.6s;
 }
 
-/* Staggered animation delays */
-.fade-in.delay-1 {
-    animation-delay: 0.5s;
+.love-divider {
+    text-align: center;
+    margin: 1.5rem 0;
+    position: relative;
+    opacity: 0;
+    animation: fadeInUp 0.6s ease forwards;
+    animation-delay: 1.8s;
 }
 
-.fade-in.delay-2 {
-    animation-delay: 1s;
+.love-divider::before,
+.love-divider::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 30%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--rose-pink), transparent);
 }
 
-/* Fade in and move up animation */
-@keyframes fadeInUp {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.love-divider::before { left: 0; }
+.love-divider::after { right: 0; }
+
+.love-divider span {
+    font-size: 1.5rem;
+    animation: heartbeat 1s ease-in-out infinite;
+}
+
+/* Love note styling */
+.love-note {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.8rem !important;
+    color: var(--deep-rose) !important;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    opacity: 0;
+    animation: fadeInUp 0.6s ease forwards;
+    animation-delay: 2s;
+}
+
+/* Signature styling */
+.signature {
+    font-size: 1.1rem;
+    color: var(--rose-pink);
+    font-style: italic;
+    font-weight: 500;
+    opacity: 0;
+    animation: fadeInUp 0.6s ease forwards;
+    animation-delay: 2.2s;
 }
 
 /* ============================================
-   BUTTON STYLES
+   UNLOCK GIFT BUTTON
    ============================================ */
 
 /* Button container */
@@ -366,12 +653,50 @@ body {
     background: linear-gradient(135deg, var(--rose-pink), var(--deep-rose));
     color: var(--white);
     box-shadow: 0 4px 15px rgba(255, 20, 147, 0.4);
-    margin-top: 2rem;
+    margin-top: 1rem;
     font-size: 1.3rem;
     padding: 1.2rem 3rem;
-    animation: pulse 2s ease-in-out infinite, fadeInUp 1s ease forwards;
-    animation-delay: 0s, 1.5s;
+    animation: btnAppear 0.8s ease forwards, pulse 2s ease-in-out infinite;
+    animation-delay: 2.4s, 3.2s;
     opacity: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+@keyframes btnAppear {
+    0% { transform: translateY(20px) scale(0.9); opacity: 0; }
+    100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+.btn-icon {
+    font-size: 1.5rem;
+    animation: giftShake 2s ease-in-out infinite;
+}
+
+@keyframes giftShake {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-5deg); }
+    75% { transform: rotate(5deg); }
+}
+
+.btn-text {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+}
+
+.btn-sparkle {
+    position: absolute;
+    right: 1.5rem;
+    font-size: 1rem;
+    animation: sparkleRotate 2s linear infinite;
+    opacity: 0.8;
+}
+
+@keyframes sparkleRotate {
+    0% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(180deg) scale(1.2); }
+    100% { transform: rotate(360deg) scale(1); }
 }
 
 /* Gift button hover effect */
@@ -385,423 +710,67 @@ body {
     transform: translateY(0) scale(1);
 }
 
-/* No button - playful secondary action */
-.btn-no {
-    background: var(--white);
+/* ============================================
+   PROGRESS SECTION
+   ============================================ */
+
+.progress-section {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    animation: fadeInUp 0.8s ease forwards;
+    animation-delay: 2.8s;
+    opacity: 0;
+    width: 100%;
+    max-width: 400px;
+}
+
+.progress-text {
+    font-size: 0.9rem;
     color: var(--text-light);
-    border: 2px solid var(--primary-pink);
-    position: relative;
-    transition: all 0.2s ease;
-}
-
-/* No button hover - moves away playfully */
-.btn-no:hover {
-    background: var(--light-pink);
-}
-
-/* ============================================
-   SUCCESS MESSAGE
-   ============================================ */
-
-/* Hidden by default */
-.success-message {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, var(--cream) 0%, var(--light-pink) 50%, var(--soft-pink) 100%);
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    z-index: 100;
-    padding: 2rem;
-}
-
-/* Show success message */
-.success-message.show {
-    display: flex;
-}
-
-/* Pop in animation */
-@keyframes popIn {
-    0% {
-        transform: translate(-50%, -50%) scale(0);
-        opacity: 0;
-    }
-    80% {
-        transform: translate(-50%, -50%) scale(1.1);
-    }
-    100% {
-        transform: translate(-50%, -50%) scale(1);
-        opacity: 1;
-    }
-}
-
-/* Success heart animation */
-.success-heart {
-    font-size: 6rem;
-    animation: heartbeat 1s ease-in-out infinite, popIn 0.6s ease forwards;
-    margin-bottom: 1.5rem;
-}
-
-/* Success message content wrapper */
-.success-message h2,
-.success-message p {
-    animation: fadeInUp 0.8s ease forwards;
-    opacity: 0;
-}
-
-.success-message h2 {
-    animation-delay: 0.3s;
-}
-
-.success-message .success-text {
-    animation-delay: 0.6s;
-}
-
-.success-message .mine-text {
-    animation-delay: 0.9s;
-}
-
-.success-message .love-note {
-    animation-delay: 1.2s;
-}
-
-/* Surprise text styling */
-.surprise-text {
-    font-size: 1.3rem;
-    color: var(--text-dark);
-    margin-bottom: 1rem;
-    max-width: 500px;
-    line-height: 1.5;
-    animation: fadeInUp 0.8s ease forwards;
-    animation-delay: 1.5s;
-    opacity: 0;
-}
-
-/* Signature styling */
-.signature {
-    font-size: 1.1rem;
-    color: var(--rose-pink);
-    font-style: italic;
-    margin-top: 1.5rem;
-    font-weight: 500;
-    animation: fadeInUp 0.8s ease forwards;
-    animation-delay: 1.8s;
-    opacity: 0;
-}
-
-/* Heartbeat animation */
-@keyframes heartbeat {
-    0%, 100% {
-        transform: scale(1);
-    }
-    25% {
-        transform: scale(1.1);
-    }
-    50% {
-        transform: scale(1);
-    }
-    75% {
-        transform: scale(1.15);
-    }
-}
-
-/* Success message heading */
-.success-message h2 {
-    font-size: 2.5rem;
-    color: var(--deep-rose);
-    margin-bottom: 1rem;
-}
-
-/* Success message paragraphs */
-.success-message p {
-    font-size: 1.2rem;
-    color: var(--text-dark);
     margin-bottom: 0.5rem;
+    text-align: center;
 }
 
-/* Success text styling */
-.success-text {
-    font-size: 1.3rem;
-    color: var(--text-dark);
-    margin-bottom: 1rem;
-}
-
-/* "You're MINE" text styling */
-.mine-text {
-    font-size: 1.4rem;
-    color: var(--text-dark);
-    margin-bottom: 1rem;
-    font-style: italic;
-}
-
-/* Highlighted "MINE" text */
-.mine-text .highlight {
-    display: inline-block;
-    background: linear-gradient(135deg, var(--deep-rose), var(--rose-pink));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    font-weight: 700;
-    font-size: 1.6rem;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    animation: pulseText 1.5s ease-in-out infinite;
-}
-
-/* Pulsing animation for "MINE" text */
-@keyframes pulseText {
-    0%, 100% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.1);
-    }
-}
-
-/* Love note styling */
-.love-note {
-    font-size: 1.5rem !important;
-    color: var(--deep-rose) !important;
-    font-weight: 600;
-    margin-top: 1rem;
-}
-
-/* ============================================
-   CONFETTI ANIMATION
-   ============================================ */
-
-/* Confetti container */
-.confetti-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 50;
+.progress-bar {
+    position: relative;
+    height: 30px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
     overflow: hidden;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Individual confetti piece */
-.confetti {
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--rose-pink), var(--deep-rose), var(--purple));
+    background-size: 200% 100%;
+    animation: progressShimmer 3s linear infinite;
+    border-radius: 20px;
+    transition: width 1s ease;
+}
+
+@keyframes progressShimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+.progress-hearts {
     position: absolute;
-    font-size: 1.5rem;
-    animation: confettiFall 3s ease-out forwards;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    gap: 0.3rem;
 }
 
-/* Confetti fall animation */
-@keyframes confettiFall {
-    0% {
-        transform: translateY(-100px) rotate(0deg);
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(100vh) rotate(720deg);
-        opacity: 0;
-    }
+.progress-hearts span {
+    font-size: 0.9rem;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
 }
 
-/* ============================================
-   MOBILE RESPONSIVENESS
-   ============================================ */
-
-/* Tablet and smaller screens */
-@media (max-width: 768px) {
-    .question-text {
-        font-size: 2.2rem;
-    }
-    
-    .valentine-text {
-        font-size: 2.8rem;
-    }
-    
-    .subtitle {
-        font-size: 1.1rem;
-    }
-    
-    .btn {
-        padding: 0.9rem 2rem;
-        font-size: 1.1rem;
-    }
-    
-    .button-container {
-        gap: 1.5rem;
-    }
-    
-    .top-heart {
-        font-size: 3rem;
-    }
-    
-    .success-message {
-        padding: 2rem 1.5rem;
-        margin: 0;
-        width: 100%;
-        border-radius: 0;
-    }
-    
-    .success-message h2 {
-        font-size: 1.8rem;
-        margin-bottom: 1rem;
-    }
-    
-    .success-message .success-heart {
-        font-size: 4rem;
-        margin-bottom: 1rem;
-    }
-    
-    .success-message .success-text {
-        font-size: 1.1rem;
-        margin-bottom: 0.8rem;
-        line-height: 1.4;
-    }
-    
-    .success-message .mine-text {
-        font-size: 1.2rem;
-        margin-bottom: 0.8rem;
-        line-height: 1.4;
-    }
-    
-    .success-message .mine-text .highlight {
-        font-size: 1.4rem;
-    }
-    
-    .success-message .surprise-text {
-        font-size: 1rem;
-        max-width: 100%;
-        padding: 0 0.5rem;
-        margin-bottom: 0.8rem;
-        line-height: 1.5;
-    }
-    
-    .success-message .love-note {
-        font-size: 1.2rem !important;
-        margin-top: 0.8rem;
-        margin-bottom: 0.5rem;
-    }
-    
-    .success-message .signature {
-        font-size: 1rem;
-        margin-top: 1rem;
-    }
-}
-
-/* Small mobile screens */
-@media (max-width: 480px) {
-    .question-text {
-        font-size: 1.8rem;
-    }
-    
-    .valentine-text {
-        font-size: 2.2rem;
-    }
-    
-    .subtitle {
-        font-size: 1rem;
-        margin-bottom: 2rem;
-    }
-    
-    .btn {
-        padding: 0.8rem 1.8rem;
-        font-size: 1rem;
-        width: 100%;
-        max-width: 200px;
-    }
-    
-    .button-container {
-        flex-direction: column;
-        align-items: center;
-        gap: 1rem;
-    }
-    
-    .top-heart {
-        font-size: 2.5rem;
-    }
-    
-    .proposal-container {
-        padding: 1.5rem;
-    }
-    
-    .success-message {
-        padding: 1.5rem 1rem;
-    }
-    
-    .success-message h2 {
-        font-size: 1.6rem;
-    }
-    
-    .success-message .success-heart {
-        font-size: 3.5rem;
-    }
-    
-    .success-message .success-text {
-        font-size: 1rem;
-    }
-    
-    .success-message .mine-text {
-        font-size: 1.1rem;
-    }
-    
-    .success-message .mine-text .highlight {
-        font-size: 1.3rem;
-    }
-    
-    .success-message .surprise-text {
-        font-size: 0.95rem;
-        line-height: 1.6;
-    }
-    
-    .success-message .love-note {
-        font-size: 1.1rem !important;
-    }
-    
-    .success-message .signature {
-        font-size: 0.95rem;
-    }
-}
-
-/* Extra small screens */
-@media (max-width: 320px) {
-    .question-text {
-        font-size: 1.5rem;
-    }
-    
-    .valentine-text {
-        font-size: 1.8rem;
-    }
-    
-    .subtitle {
-        font-size: 0.9rem;
-    }
-}
-
-/* ============================================
-   ACCESSIBILITY
-   ============================================ */
-
-/* Respect reduced motion preferences */
-@media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-    }
-    
-    .floating-heart {
-        display: none;
-    }
-}
-
-/* Focus styles for keyboard navigation */
-.btn:focus-visible {
-    outline: 3px solid var(--deep-rose);
-    outline-offset: 3px;
+.progress-hearts span.locked {
+    opacity: 0.4;
+    filter: grayscale(50%);
 }
 
 /* ============================================
@@ -812,9 +781,9 @@ body {
 .timeline-section {
     width: 100%;
     max-width: 600px;
-    margin-top: 3rem;
-    animation: fadeInUp 1s ease forwards;
-    animation-delay: 2s;
+    margin-top: 2rem;
+    animation: fadeInUp 0.8s ease forwards;
+    animation-delay: 3.2s;
     opacity: 0;
 }
 
@@ -824,6 +793,14 @@ body {
     color: var(--text-dark);
     margin-bottom: 2rem;
     font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+}
+
+.title-icon {
+    animation: heartbeat 1s ease-in-out infinite;
 }
 
 /* Timeline Container */
@@ -989,8 +966,131 @@ body {
     color: #9ca3af;
 }
 
-/* Timeline Responsive */
+/* ============================================
+   FOOTER QUOTE
+   ============================================ */
+
+.footer-quote {
+    margin-top: 3rem;
+    text-align: center;
+    animation: fadeInUp 0.8s ease forwards;
+    animation-delay: 3.6s;
+    opacity: 0;
+}
+
+.footer-quote p {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.5rem;
+    color: var(--text-dark);
+    font-style: italic;
+}
+
+.quote-heart {
+    display: inline-block;
+    font-size: 1.5rem;
+    margin-top: 0.5rem;
+    animation: heartbeat 1s ease-in-out infinite;
+}
+
+/* ============================================
+   FADE-IN ANIMATIONS
+   ============================================ */
+
+/* Base fade-in class */
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp var(--fade-duration) ease forwards;
+}
+
+/* Staggered animation delays */
+.fade-in.delay-1 {
+    animation-delay: 0.5s;
+}
+
+.fade-in.delay-2 {
+    animation-delay: 1s;
+}
+
+/* Fade in and move up animation */
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============================================
+   CONFETTI ANIMATION
+   ============================================ */
+
+/* Confetti container */
+.confetti-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 50;
+    overflow: hidden;
+}
+
+/* Individual confetti piece */
+.confetti {
+    position: absolute;
+    font-size: 1.5rem;
+    animation: confettiFall 3s ease-out forwards;
+}
+
+/* Confetti fall animation */
+@keyframes confettiFall {
+    0% {
+        transform: translateY(-100px) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+/* ============================================
+   MOBILE RESPONSIVENESS
+   ============================================ */
+
+/* Tablet and smaller screens */
 @media (max-width: 768px) {
+    .proposal-container {
+        padding-top: 5rem;
+    }
+    
+    .hero-title {
+        font-size: 3rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .btn {
+        padding: 0.9rem 2rem;
+        font-size: 1.1rem;
+    }
+    
+    .love-message-card {
+        padding: 2rem 1.5rem;
+        margin: 0 1rem 2rem 1rem;
+    }
+    
+    .success-heart {
+        font-size: 4rem;
+    }
+    
+    .ring-1 { width: 80px; height: 80px; }
+    .ring-2 { width: 110px; height: 110px; }
+    .ring-3 { width: 140px; height: 140px; }
+    
     .timeline-section {
         margin-top: 2rem;
     }
@@ -1017,22 +1117,261 @@ body {
     .day-name {
         font-size: 1rem;
     }
+    
+    .progress-section {
+        padding: 0 1rem;
+    }
+    
+    .footer-quote p {
+        font-size: 1.2rem;
+    }
+    
+    .card-decoration {
+        font-size: 1.2rem;
+    }
+    
+    .top-left { top: 10px; left: 15px; }
+    .top-right { top: 10px; right: 15px; }
+    .bottom-left { bottom: 10px; left: 15px; }
+    .bottom-right { bottom: 10px; right: 15px; }
 }
 
+/* Small mobile screens */
 @media (max-width: 480px) {
-    .timeline-title {
-        font-size: 1.1rem;
+    .proposal-container {
+        padding: 5rem 1rem 2rem 1rem;
     }
     
-    .day-number {
-        font-size: 0.7rem;
+    .hero-section {
+        margin-bottom: 1.5rem;
     }
     
-    .day-name {
+    .hero-title {
+        font-size: 2.2rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1rem;
+        padding: 0 0.5rem;
+    }
+    
+    .btn {
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+        width: 100%;
+        max-width: 280px;
+        justify-content: center;
+    }
+    
+    .btn-gift {
+        font-size: 1rem;
+        padding: 0.9rem 1.5rem;
+        flex-direction: row;
+        gap: 0.5rem;
+    }
+    
+    .btn-icon {
+        font-size: 1.2rem;
+    }
+    
+    .btn-sparkle {
+        display: none;
+    }
+    
+    .success-heart {
+        font-size: 3.5rem;
+    }
+    
+    .ring-1 { width: 70px; height: 70px; }
+    .ring-2 { width: 95px; height: 95px; }
+    .ring-3 { width: 120px; height: 120px; }
+    
+    .love-message-card {
+        padding: 1.5rem 1rem;
+        margin: 0 0.5rem 1.5rem 0.5rem;
+    }
+    
+    .mine-text {
+        font-size: 1rem;
+        line-height: 1.5;
+        margin-bottom: 0.8rem;
+    }
+    
+    .mine-text .highlight {
+        font-size: 1.2rem;
+    }
+    
+    .surprise-text {
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+    
+    .love-divider {
+        margin: 1rem 0;
+    }
+    
+    .love-divider::before,
+    .love-divider::after {
+        width: 20%;
+    }
+    
+    .love-note {
+        font-size: 1.4rem !important;
+    }
+    
+    .signature {
         font-size: 0.95rem;
     }
     
-    .day-status {
-        font-size: 0.75rem;
+    .card-decoration {
+        font-size: 1rem;
+        opacity: 0.3;
     }
+    
+    .top-left { top: 8px; left: 10px; }
+    .top-right { top: 8px; right: 10px; }
+    .bottom-left { bottom: 8px; left: 10px; }
+    .bottom-right { bottom: 8px; right: 10px; }
+    
+    .timeline-title {
+        font-size: 1.1rem;
+        flex-direction: column;
+        gap: 0.3rem;
+    }
+    
+    .title-icon {
+        font-size: 1.2rem;
+    }
+    
+    .day-number {
+        font-size: 0.65rem;
+    }
+    
+    .day-name {
+        font-size: 0.9rem;
+    }
+    
+    .day-status {
+        font-size: 0.7rem;
+    }
+    
+    .progress-section {
+        padding: 0 0.5rem;
+    }
+    
+    .progress-text {
+        font-size: 0.85rem;
+    }
+    
+    .progress-bar {
+        height: 25px;
+    }
+    
+    .progress-hearts span {
+        font-size: 0.65rem;
+    }
+    
+    .footer-quote {
+        margin-top: 2rem;
+    }
+    
+    .footer-quote p {
+        font-size: 1.1rem;
+        padding: 0 1rem;
+    }
+    
+    .quote-heart {
+        font-size: 1.2rem;
+    }
+    
+    .decoration {
+        font-size: 1.2rem;
+    }
+}
+
+/* Extra small screens */
+@media (max-width: 320px) {
+    .proposal-container {
+        padding-top: 4.5rem;
+    }
+    
+    .hero-title {
+        font-size: 1.8rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 0.9rem;
+    }
+    
+    .success-heart {
+        font-size: 3rem;
+    }
+    
+    .ring-1 { width: 60px; height: 60px; }
+    .ring-2 { width: 80px; height: 80px; }
+    .ring-3 { width: 100px; height: 100px; }
+    
+    .love-message-card {
+        padding: 1.2rem 0.8rem;
+    }
+    
+    .mine-text {
+        font-size: 0.9rem;
+    }
+    
+    .mine-text .highlight {
+        font-size: 1.1rem;
+    }
+    
+    .surprise-text {
+        font-size: 0.85rem;
+    }
+    
+    .love-note {
+        font-size: 1.2rem !important;
+    }
+    
+    .timeline-title {
+        font-size: 1rem;
+    }
+    
+    .day-name {
+        font-size: 0.85rem;
+    }
+    
+    .footer-quote p {
+        font-size: 1rem;
+    }
+}
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .floating-heart,
+    .particle,
+    .decoration {
+        display: none;
+    }
+}
+
+/* Focus styles for keyboard navigation */
+.btn:focus-visible {
+    outline: 3px solid var(--deep-rose);
+    outline-offset: 3px;
+}
+
+.timeline-item:focus-visible {
+    outline: 3px solid var(--deep-rose);
+    outline-offset: 3px;
 }

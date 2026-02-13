@@ -5,10 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>You Said YES! 💕</title>
     <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Quicksand:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
+    <!-- Animated background particles -->
+    <div class="bg-particles" id="bgParticles"></div>
+
     <!-- Floating hearts background container -->
     <div class="hearts-container" id="heartsContainer"></div>
+
+    <!-- Decorative floating elements -->
+    <div class="floating-decorations">
+      <div class="decoration deco-1">✨</div>
+      <div class="decoration deco-2">💫</div>
+      <div class="decoration deco-3">⭐</div>
+      <div class="decoration deco-4">🌟</div>
+      <div class="decoration deco-5">✨</div>
+    </div>
 
     <!-- Music Player Widget -->
     <div class="music-player" id="musicPlayer">
@@ -49,29 +65,72 @@
 
     <!-- Main content wrapper - Landing Page (Success Message) -->
     <main class="proposal-container" id="mainContainer">
-      <div class="success-heart">💕</div>
-      <h2>You said YES!</h2>
-      <p class="success-text">You've made me the happiest person alive!</p>
-      <p class="mine-text">
-        And don't you forget...
-        <span class="highlight">You're MINE</span>
-        💝
-      </p>
-      <p class="surprise-text">
-        Be ready to have the most amazing 7 days of your life full of gifts and
-        surprises! 🎁✨
-      </p>
-      <p class="love-note">Forever & Always 💘</p>
-      <p class="signature">~ Your Athreya</p>
+      <!-- Hero Section -->
+      <div class="hero-section">
+        <div class="heart-container">
+          <div class="heart-ring ring-1"></div>
+          <div class="heart-ring ring-2"></div>
+          <div class="heart-ring ring-3"></div>
+          <div class="success-heart">💕</div>
+        </div>
+        <h1 class="hero-title">You Said YES!</h1>
+        <p class="hero-subtitle">You've made me the happiest person alive!</p>
+      </div>
+
+      <!-- Love Message Card -->
+      <div class="love-message-card">
+        <div class="card-decoration top-left">💝</div>
+        <div class="card-decoration top-right">💖</div>
+        <p class="mine-text">
+          And don't you forget...
+          <span class="highlight">You're MINE</span>
+          💝
+        </p>
+        <p class="surprise-text">
+          Be ready to have the most amazing 7 days of your life full of gifts
+          and surprises! 🎁✨
+        </p>
+        <div class="love-divider">
+          <span>💕</span>
+        </div>
+        <p class="love-note">Forever & Always</p>
+        <p class="signature">~ Your Athreya 💘</p>
+        <div class="card-decoration bottom-left">💗</div>
+        <div class="card-decoration bottom-right">💓</div>
+      </div>
 
       <!-- Unlock Gift Button -->
       <button class="btn btn-gift" id="unlockGiftBtn">
-        🎁 Unlock Your Sixth Gift
+        <span class="btn-icon">🎁</span>
+        <span class="btn-text">Unlock Your Sixth Gift</span>
+        <span class="btn-sparkle">✨</span>
       </button>
+
+      <!-- Progress Indicator -->
+      <div class="progress-section">
+        <p class="progress-text">5 of 8 gifts unlocked</p>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 62.5%"></div>
+          <div class="progress-hearts">
+            <span>🌹</span>
+            <span>💍</span>
+            <span>🍫</span>
+            <span>🐼</span>
+            <span>🌊</span>
+            <span class="locked">💜</span>
+            <span class="locked">💋</span>
+            <span class="locked">❤️</span>
+          </div>
+        </div>
+      </div>
 
       <!-- Timeline Section -->
       <div class="timeline-section">
-        <h3 class="timeline-title">Our Valentine Week Journey 💕</h3>
+        <h3 class="timeline-title">
+          <span class="title-icon">💕</span>
+          Our Valentine Week Journey
+          <span class="title-icon">💕</span>
+        </h3>
         <div class="timeline">
           <!-- Rose Day (Completed) -->
           <a href="roseday.html" class="timeline-item completed">
@@ -151,6 +210,12 @@
             </div>
           </div>
         </div>
+      </div>
+
+      <!-- Footer Quote -->
+      <div class="footer-quote">
+        <p>"Every love story is beautiful, but ours is my favorite."</p>
+        <span class="quote-heart">💕</span>
       </div>
     </main>
 
