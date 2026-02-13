@@ -213,11 +213,11 @@ function startConfettiRain() {
 
 /**
  * Handles "Unlock Gift" button click
- * Navigates to Hug Day gift page (current day)
+ * Navigates to Kiss Day gift page (current day)
  */
 function handleGiftClick() {
-    // Navigate to Hug Day page (current unlockable day)
-    window.location.href = 'hugday.html';
+    // Navigate to Kiss Day page (current unlockable day)
+    window.location.href = 'kissday.html';
 }
 
 // ============================================
