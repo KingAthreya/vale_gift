@@ -370,32 +370,7 @@ body {
     width: 100%;
     animation: fadeSlideUp 1s ease-out 0.6s forwards;
     opacity: 0;
-    padding: 12px 20px 32px;
-}
-
-.message-head-svg {
-    position: absolute;
-    top: -44px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 176px;
-    height: 116px;
-    z-index: 22;
-    pointer-events: none;
-    overflow: visible;
-    filter: drop-shadow(0 0 16px rgba(65, 175, 124, 0.35));
-}
-
-.msg-snake-head-svg {
-    animation: msgSnakeHeadBob 2.5s ease-in-out infinite;
-    transform-origin: center;
-    transform-box: fill-box;
-    filter: drop-shadow(0 2px 9px rgba(0, 0, 0, 0.4));
-}
-
-.msg-snake-tongue-svg {
-    animation: tongueFlick 0.7s ease-in-out infinite;
-    transform-origin: top;
+    padding: 22px 20px 32px;
 }
 
 /* ============================================
@@ -408,7 +383,7 @@ body {
     border: 1px solid var(--glass-border);
     border-radius: 20px;
     padding: 3.4rem 2.5rem 2rem;
-    margin-top: 1.2rem;
+    margin-top: 0;
     box-shadow: 
         0 8px 32px rgba(123, 44, 191, 0.3),
         inset 0 1px 0 rgba(255, 255, 255, 0.1);
