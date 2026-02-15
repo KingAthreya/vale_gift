@@ -903,24 +903,324 @@ body {
     font-weight: 500;
 }
 
-/* Completed Timeline Item */
-.timeline-item.completed {
-    background: linear-gradient(135deg, rgba(255, 182, 193, 0.3), rgba(255, 192, 203, 0.3));
-    border: 1px solid rgba(255, 20, 147, 0.2);
+/* ============================================
+   INDIVIDUAL DAY THEME PREVIEWS
+   Each button shows a peek of its unique theme
+   ============================================ */
+
+/* Rose Day - Romantic Rose Theme */
+.timeline-item.rose-day {
+    background: linear-gradient(135deg, rgba(255, 179, 186, 0.4), rgba(255, 209, 217, 0.5));
+    border: 2px solid rgba(230, 57, 70, 0.3);
+    position: relative;
+    overflow: hidden;
 }
 
-.timeline-item.completed:hover {
+.timeline-item.rose-day::before {
+    content: '🌹';
+    position: absolute;
+    right: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 3rem;
+    opacity: 0.15;
+}
+
+.timeline-item.rose-day:hover {
     transform: translateX(5px);
-    box-shadow: 0 4px 15px rgba(255, 20, 147, 0.2);
-    background: linear-gradient(135deg, rgba(255, 182, 193, 0.5), rgba(255, 192, 203, 0.5));
+    box-shadow: 0 4px 20px rgba(230, 57, 70, 0.3);
+    background: linear-gradient(135deg, rgba(255, 179, 186, 0.6), rgba(255, 107, 107, 0.4));
 }
 
-.timeline-item.completed .timeline-marker {
-    background: linear-gradient(135deg, var(--rose-pink), var(--deep-rose));
-    box-shadow: 0 2px 15px rgba(255, 20, 147, 0.4);
+.timeline-item.rose-day .timeline-marker {
+    background: linear-gradient(135deg, #e63946, #ff6b6b);
+    box-shadow: 0 2px 15px rgba(230, 57, 70, 0.5);
 }
 
-.timeline-item.completed .day-status {
+.timeline-item.rose-day .day-name {
+    color: #c1121f;
+}
+
+.timeline-item.rose-day .day-status {
+    color: #22c55e;
+}
+
+/* Propose Day - Purple & Silver Butterfly Theme */
+.timeline-item.propose-day {
+    background: linear-gradient(135deg, rgba(233, 213, 255, 0.4), rgba(192, 132, 252, 0.3));
+    border: 2px solid rgba(147, 51, 234, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.timeline-item.propose-day::before {
+    content: '🦋';
+    position: absolute;
+    right: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 3rem;
+    opacity: 0.15;
+}
+
+.timeline-item.propose-day:hover {
+    transform: translateX(5px);
+    box-shadow: 0 4px 20px rgba(147, 51, 234, 0.3);
+    background: linear-gradient(135deg, rgba(233, 213, 255, 0.6), rgba(147, 51, 234, 0.4));
+}
+
+.timeline-item.propose-day .timeline-marker {
+    background: linear-gradient(135deg, #9333ea, #c084fc);
+    box-shadow: 0 2px 15px rgba(147, 51, 234, 0.5);
+}
+
+.timeline-item.propose-day .day-name {
+    color: #6b21a8;
+}
+
+.timeline-item.propose-day .day-status {
+    color: #22c55e;
+}
+
+/* Chocolate Day - Warm Chocolate & Caramel Theme */
+.timeline-item.chocolate-day {
+    background: linear-gradient(135deg, rgba(232, 195, 158, 0.5), rgba(198, 134, 66, 0.4));
+    border: 2px solid rgba(92, 51, 23, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.timeline-item.chocolate-day::before {
+    content: '🍫';
+    position: absolute;
+    right: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 3rem;
+    opacity: 0.15;
+}
+
+.timeline-item.chocolate-day:hover {
+    transform: translateX(5px);
+    box-shadow: 0 4px 20px rgba(92, 51, 23, 0.3);
+    background: linear-gradient(135deg, rgba(232, 195, 158, 0.7), rgba(123, 75, 42, 0.4));
+}
+
+.timeline-item.chocolate-day .timeline-marker {
+    background: linear-gradient(135deg, #5c3317, #c68642);
+    box-shadow: 0 2px 15px rgba(92, 51, 23, 0.5);
+}
+
+.timeline-item.chocolate-day .day-name {
+    color: #3d1f0d;
+}
+
+.timeline-item.chocolate-day .day-status {
+    color: #22c55e;
+}
+
+/* Teddy Day - Night Sky with Warm Glow Theme */
+.timeline-item.teddy-day {
+    background: linear-gradient(135deg, rgba(26, 26, 46, 0.8), rgba(15, 52, 96, 0.7));
+    border: 2px solid rgba(255, 201, 71, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.timeline-item.teddy-day::before {
+    content: '🐼';
+    position: absolute;
+    right: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 3rem;
+    opacity: 0.2;
+}
+
+.timeline-item.teddy-day:hover {
+    transform: translateX(5px);
+    box-shadow: 0 4px 20px rgba(255, 201, 71, 0.4);
+    background: linear-gradient(135deg, rgba(26, 26, 46, 0.9), rgba(45, 27, 78, 0.8));
+}
+
+.timeline-item.teddy-day .timeline-marker {
+    background: linear-gradient(135deg, #ffc947, #ff9f43);
+    box-shadow: 0 2px 15px rgba(255, 201, 71, 0.6);
+}
+
+.timeline-item.teddy-day .day-number {
+    color: rgba(255, 248, 231, 0.7);
+}
+
+.timeline-item.teddy-day .day-name {
+    color: #ffe8a1;
+}
+
+.timeline-item.teddy-day .day-status {
+    color: #22c55e;
+}
+
+/* Promise Day - Ocean, Pearls, Whales Theme */
+.timeline-item.promise-day {
+    background: linear-gradient(135deg, rgba(10, 22, 40, 0.8), rgba(26, 82, 118, 0.7));
+    border: 2px solid rgba(72, 201, 176, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.timeline-item.promise-day::before {
+    content: '🐋';
+    position: absolute;
+    right: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 3rem;
+    opacity: 0.2;
+}
+
+.timeline-item.promise-day:hover {
+    transform: translateX(5px);
+    box-shadow: 0 4px 20px rgba(72, 201, 176, 0.4);
+    background: linear-gradient(135deg, rgba(10, 22, 40, 0.9), rgba(15, 52, 96, 0.8));
+}
+
+.timeline-item.promise-day .timeline-marker {
+    background: linear-gradient(135deg, #48c9b0, #2980b9);
+    box-shadow: 0 2px 15px rgba(72, 201, 176, 0.6);
+}
+
+.timeline-item.promise-day .day-number {
+    color: rgba(236, 240, 241, 0.7);
+}
+
+.timeline-item.promise-day .day-name {
+    color: #c4e0f9;
+}
+
+.timeline-item.promise-day .day-status {
+    color: #22c55e;
+}
+
+/* Hug Day - Prism, Crystal, Rainbow Theme */
+.timeline-item.hug-day {
+    background: linear-gradient(135deg, rgba(26, 10, 46, 0.8), rgba(74, 44, 122, 0.7));
+    border: 2px solid rgba(155, 89, 182, 0.4);
+    position: relative;
+    overflow: hidden;
+}
+
+.timeline-item.hug-day::before {
+    content: '💜';
+    position: absolute;
+    right: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 3rem;
+    opacity: 0.2;
+}
+
+.timeline-item.hug-day:hover {
+    transform: translateX(5px);
+    box-shadow: 0 4px 20px rgba(155, 89, 182, 0.4);
+    background: linear-gradient(135deg, rgba(26, 10, 46, 0.9), rgba(123, 75, 168, 0.6));
+}
+
+.timeline-item.hug-day .timeline-marker {
+    background: linear-gradient(135deg, #9b59b6, #e0aaff);
+    box-shadow: 0 2px 15px rgba(155, 89, 182, 0.6);
+}
+
+.timeline-item.hug-day .day-number {
+    color: rgba(240, 230, 255, 0.7);
+}
+
+.timeline-item.hug-day .day-name {
+    color: #e8d5ff;
+}
+
+.timeline-item.hug-day .day-status {
+    color: #22c55e;
+}
+
+/* Kiss Day - Venom Perfume Theme */
+.timeline-item.kiss-day {
+    background: linear-gradient(135deg, rgba(13, 0, 21, 0.85), rgba(60, 9, 108, 0.7));
+    border: 2px solid rgba(199, 125, 255, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.timeline-item.kiss-day::before {
+    content: '💋';
+    position: absolute;
+    right: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 3rem;
+    opacity: 0.2;
+}
+
+.timeline-item.kiss-day:hover {
+    transform: translateX(5px);
+    box-shadow: 0 4px 20px rgba(199, 125, 255, 0.4);
+    background: linear-gradient(135deg, rgba(13, 0, 21, 0.95), rgba(123, 44, 191, 0.6));
+}
+
+.timeline-item.kiss-day .timeline-marker {
+    background: linear-gradient(135deg, #7b2cbf, #c77dff);
+    box-shadow: 0 2px 15px rgba(123, 44, 191, 0.6);
+}
+
+.timeline-item.kiss-day .day-number {
+    color: rgba(224, 170, 255, 0.7);
+}
+
+.timeline-item.kiss-day .day-name {
+    color: #e0aaff;
+}
+
+.timeline-item.kiss-day .day-status {
+    color: #22c55e;
+}
+
+/* Valentine's Day - Grand Finale Crimson & Gold Theme */
+.timeline-item.valentine-day {
+    background: linear-gradient(135deg, rgba(26, 10, 16, 0.85), rgba(74, 26, 46, 0.7));
+    border: 2px solid rgba(220, 20, 60, 0.4);
+    position: relative;
+    overflow: hidden;
+}
+
+.timeline-item.valentine-day::before {
+    content: '❤️';
+    position: absolute;
+    right: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 3rem;
+    opacity: 0.2;
+}
+
+.timeline-item.valentine-day:hover {
+    transform: translateX(5px);
+    box-shadow: 0 4px 20px rgba(220, 20, 60, 0.4);
+    background: linear-gradient(135deg, rgba(26, 10, 16, 0.95), rgba(139, 0, 0, 0.5));
+}
+
+.timeline-item.valentine-day .timeline-marker {
+    background: linear-gradient(135deg, #dc143c, #ff4571);
+    box-shadow: 0 2px 15px rgba(220, 20, 60, 0.6);
+}
+
+.timeline-item.valentine-day .day-number {
+    color: rgba(245, 230, 234, 0.7);
+}
+
+.timeline-item.valentine-day .day-name {
+    color: #ff85a2;
+}
+
+.timeline-item.valentine-day .day-status {
     color: #22c55e;
 }
 
