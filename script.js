@@ -13,12 +13,154 @@ const confettiContainer = document.getElementById('confettiContainer');
 const mainContainer = document.getElementById('mainContainer');
 const audioContainer = document.getElementById('audioContainer');
 const bgParticles = document.getElementById('bgParticles');
+const musicPlayer = document.getElementById('musicPlayer');
 
 // Heart emojis for floating animation
 const heartEmojis = ['💕', '💖', '💗', '💓', '💝', '💘', '🩷', '❤️', '🩶', '💜'];
 
 // Confetti emojis for celebration
 const confettiEmojis = ['💕', '💖', '💗', '💓', '💝', '💘', '🩷', '❤️', '✨', '🎉', '🎊', '💐', '🌹', '⭐', '🌟'];
+
+// Music player state
+let isPlaying = false;
+let youtubePlayer = null;
+let playerReady = false;
+
+// ============================================
+// MUSIC PLAYER TOGGLE
+// ============================================
+
+/**
+ * Initialize YouTube IFrame API
+ */
+function initYouTubeAPI() {
+    const tag = document.createElement('script');
+    tag.src = 'https://www.youtube.com/iframe_api';
+    const firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+}
+
+/**
+ * Called by YouTube API when ready
+ */
+window.onYouTubeIframeAPIReady = function() {
+    youtubePlayer = new YT.Player('youtubePlayer', {
+        height: '1',
+        width: '1',
+        videoId: 'OTOmQmOFeVo',
+        playerVars: {
+            'autoplay': 1,
+            'loop': 1,
+            'playlist': 'OTOmQmOFeVo',
+            'controls': 0,
+            'showinfo': 0,
+            'rel': 0,
+            'modestbranding': 1,
+            'playsinline': 1,
+            'origin': window.location.origin
+        },
+        events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+        }
+    });
+};
+
+/**
+ * Called when player is ready
+ */
+function onPlayerReady(event) {
+    playerReady = true;
+    console.log('🎵 Music player ready');
+    // Try autoplay — browsers may block this without user gesture
+    event.target.playVideo();
+    // Check after a short delay if it actually started
+    setTimeout(() => {
+        if (youtubePlayer && youtubePlayer.getPlayerState) {
+            const state = youtubePlayer.getPlayerState();
+            // YT.PlayerState.PLAYING = 1
+            if (state === 1) {
+                isPlaying = true;
+                updateMusicPlayerUI(true);
+            } else {
+                // Autoplay was blocked — show paused state, user click will start it
+                isPlaying = false;
+                updateMusicPlayerUI(false);
+                console.log('🎵 Autoplay blocked — click music player to start');
+            }
+        }
+    }, 1000);
+}
+
+/**
+ * Called when player state changes
+ */
+function onPlayerStateChange(event) {
+    if (event.data === YT.PlayerState.PLAYING) {
+        isPlaying = true;
+        updateMusicPlayerUI(true);
+    } else if (event.data === YT.PlayerState.PAUSED) {
+        isPlaying = false;
+        updateMusicPlayerUI(false);
+    } else if (event.data === YT.PlayerState.ENDED) {
+        // Loop — restart
+        event.target.playVideo();
+    }
+}
+
+/**
+ * Toggle music play/pause
+ */
+function toggleMusic() {
+    if (!youtubePlayer || !playerReady) return;
+    
+    // Check actual player state instead of relying on flag
+    const state = youtubePlayer.getPlayerState ? youtubePlayer.getPlayerState() : -1;
+    
+    if (state === 1) { // YT.PlayerState.PLAYING
+        youtubePlayer.pauseVideo();
+        isPlaying = false;
+        updateMusicPlayerUI(false);
+    } else {
+        youtubePlayer.playVideo();
+        isPlaying = true;
+        updateMusicPlayerUI(true);
+    }
+}
+
+/**
+ * Update music player visual state
+ */
+function updateMusicPlayerUI(playing) {
+    const musicIcon = document.querySelector('.music-icon');
+    const musicLabel = document.querySelector('.music-label');
+    
+    if (playing) {
+        if (musicIcon) musicIcon.textContent = '🎵';
+        if (musicLabel) musicLabel.textContent = 'Now Playing';
+        if (musicPlayer) musicPlayer.classList.remove('paused');
+    } else {
+        if (musicIcon) musicIcon.textContent = '🔇';
+        if (musicLabel) musicLabel.textContent = 'Tap to Play';
+        if (musicPlayer) musicPlayer.classList.add('paused');
+    }
+}
+
+/**
+ * Initialize music player click handler
+ */
+function initMusicPlayer() {
+    if (musicPlayer) {
+        musicPlayer.style.cursor = 'pointer';
+        musicPlayer.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            toggleMusic();
+        });
+        // Start in paused visual state until autoplay is confirmed
+        updateMusicPlayerUI(false);
+    }
+}
 
 // ============================================
 // FLOATING HEARTS BACKGROUND
@@ -64,12 +206,12 @@ function createFloatingHeart() {
  */
 function initFloatingHearts() {
     // Create initial batch of hearts
-    for (let i = 0; i < 15; i++) {
-        setTimeout(createFloatingHeart, i * 300);
+    for (let i = 0; i < 8; i++) {
+        setTimeout(createFloatingHeart, i * 500);
     }
     
-    // Continue creating hearts every 800ms
-    setInterval(createFloatingHeart, 800);
+    // Continue creating hearts every 1.5s (reduced for smoothness)
+    setInterval(createFloatingHeart, 1500);
 }
 
 // ============================================
@@ -107,11 +249,11 @@ function createParticle() {
  * Initialize background particles
  */
 function initParticles() {
-    for (let i = 0; i < 20; i++) {
-        setTimeout(createParticle, i * 500);
+    for (let i = 0; i < 10; i++) {
+        setTimeout(createParticle, i * 800);
     }
     
-    setInterval(createParticle, 2000);
+    setInterval(createParticle, 3500);
 }
 
 // ============================================
@@ -159,11 +301,11 @@ function triggerConfetti() {
     const centerX = window.innerWidth / 2;
     const centerY = window.innerHeight / 2;
     
-    // Create 25 confetti pieces (reduced from 50)
-    for (let i = 0; i < 25; i++) {
+    // Create 15 confetti pieces (reduced for performance)
+    for (let i = 0; i < 15; i++) {
         setTimeout(() => {
             createConfettiPiece(centerX, centerY);
-        }, i * 50);
+        }, i * 60);
     }
 }
 
@@ -173,7 +315,7 @@ function triggerConfetti() {
  */
 function startConfettiRain() {
     let count = 0;
-    const maxConfetti = 40; // Reduced from 100
+    const maxConfetti = 20; // Reduced for smoothness
     
     const rainInterval = setInterval(() => {
         if (count >= maxConfetti) {
@@ -204,7 +346,7 @@ function startConfettiRain() {
         }, 4000);
         
         count++;
-    }, 100); // Slower interval
+    }, 150); // Slower interval for smoothness
 }
 
 // ============================================
@@ -216,8 +358,7 @@ function startConfettiRain() {
  * Navigates to Kiss Day gift page (current day)
  */
 function handleGiftClick() {
-    // Navigate to Kiss Day page (current unlockable day)
-    window.location.href = 'kissday.html';
+    window.location.href = 'valentineday.html';
 }
 
 // ============================================
@@ -232,35 +373,34 @@ function initMouseInteraction() {
     
     document.addEventListener('mousemove', (e) => {
         const now = Date.now();
-        if (now - lastTime < 100) return;
+        if (now - lastTime < 200) return; // Increased throttle
         lastTime = now;
         
-        if (Math.random() > 0.7) {
+        if (Math.random() > 0.8) {
             const sparkle = document.createElement('div');
             sparkle.style.cssText = `
                 position: fixed;
                 left: ${e.clientX}px;
                 top: ${e.clientY}px;
-                width: 6px;
-                height: 6px;
+                width: 5px;
+                height: 5px;
                 border-radius: 50%;
-                background: rgba(255, 105, 180, 0.8);
-                box-shadow: 0 0 10px 4px rgba(255, 105, 180, 0.4);
+                background: rgba(255, 105, 180, 0.7);
+                box-shadow: 0 0 8px 3px rgba(255, 105, 180, 0.3);
                 pointer-events: none;
                 z-index: 50;
-                transition: all 0.8s ease-out;
-                opacity: 0.9;
+                transition: all 0.6s ease-out;
+                opacity: 0.8;
+                will-change: transform, opacity;
             `;
             document.body.appendChild(sparkle);
             
             requestAnimationFrame(() => {
-                sparkle.style.transform = `translateY(-30px) scale(0)`;
+                sparkle.style.transform = `translateY(-25px) scale(0)`;
                 sparkle.style.opacity = '0';
             });
             
-            setTimeout(() => {
-                sparkle.remove();
-            }, 800);
+            setTimeout(() => sparkle.remove(), 600);
         }
     });
 }
@@ -278,23 +418,24 @@ function initClickInteraction() {
         if (e.target.closest('button') || e.target.closest('a')) return;
         
         // Create small heart burst
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 4; i++) {
             setTimeout(() => {
                 const heart = document.createElement('div');
                 const emoji = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
-                const angle = (Math.PI * 2 / 5) * i;
-                const distance = 30 + Math.random() * 20;
+                const angle = (Math.PI * 2 / 4) * i;
+                const distance = 25 + Math.random() * 15;
                 
                 heart.textContent = emoji;
                 heart.style.cssText = `
                     position: fixed;
                     left: ${e.clientX}px;
                     top: ${e.clientY}px;
-                    font-size: 1rem;
+                    font-size: 0.9rem;
                     pointer-events: none;
                     z-index: 60;
-                    transition: all 0.6s ease-out;
+                    transition: all 0.5s ease-out;
                     opacity: 1;
+                    will-change: transform, opacity;
                 `;
                 document.body.appendChild(heart);
                 
@@ -303,10 +444,8 @@ function initClickInteraction() {
                     heart.style.opacity = '0';
                 });
                 
-                setTimeout(() => {
-                    heart.remove();
-                }, 600);
-            }, i * 50);
+                setTimeout(() => heart.remove(), 500);
+            }, i * 40);
         }
     });
 }
@@ -339,6 +478,8 @@ document.addEventListener('DOMContentLoaded', () => {
     initEventListeners();
     initMouseInteraction();
     initClickInteraction();
+    initYouTubeAPI();
+    initMusicPlayer();
     
     // Trigger initial confetti celebration
     triggerConfetti();

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Valentine's Day ❤️ - Our Perfect Date</title>
+    <meta
+      name="description"
+      content="Valentine's Day - Our perfect date plan together"
+    />
+    <link rel="stylesheet" href="valentineday.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Quicksand:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Ambient particles -->
+    <canvas id="particleCanvas"></canvas>
+
+    <!-- Floating elements container -->
+    <div class="floats-container" id="floatsContainer"></div>
+
+    <!-- Back button -->
+    <a href="index.html" class="back-btn" id="backBtn">← Back</a>
+
+    <!-- Main content wrapper -->
+    <main class="valentine-container">
+      <!-- Hero Section -->
+      <div class="hero-section" id="heroSection">
+        <div class="hero-badge">Day 8 — The Grand Finale</div>
+        <div class="hero-heart">❤️</div>
+        <h1 class="hero-title">Valentine's Day</h1>
+        <p class="hero-subtitle">Our Perfect Date Plan ✨</p>
+      </div>
+
+      <!-- Date Plan Timeline -->
+      <div class="date-plan-section" id="datePlan">
+        <h2 class="section-title">
+          <span class="title-deco">💕</span>
+          How We Spent Our Day
+          <span class="title-deco">💕</span>
+        </h2>
+
+        <div class="date-timeline">
+          <!-- Activity 1: Morning Greeting -->
+          <div class="activity-card" data-index="0">
+            <div class="activity-time">
+              <span class="time-dot"></span>
+              <span class="time-label">Morning</span>
+            </div>
+            <div class="activity-body">
+              <div class="activity-icon-wrap">
+                <span class="activity-icon">🌸</span>
+                <span class="activity-icon-sub">🎈</span>
+              </div>
+              <div class="activity-info">
+                <h3 class="activity-title">Flowers & "I Love You" Balloon</h3>
+                <p class="activity-desc">
+                  Started your day with a surprise — a beautiful bouquet of
+                  fresh flowers and an
+                  <span class="highlight">"I Love You"</span>
+                  balloon to let you know you're the first thing on my mind
+                  every morning. Your smile when you saw them? That was my real
+                  Valentine's gift. 🌹💘
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Activity 2: Movie -->
+          <div class="activity-card" data-index="1">
+            <div class="activity-time">
+              <span class="time-dot"></span>
+              <span class="time-label">Afternoon</span>
+            </div>
+            <div class="activity-body">
+              <div class="activity-icon-wrap">
+                <span class="activity-icon">🎬</span>
+                <span class="activity-icon-sub">🍿</span>
+              </div>
+              <div class="activity-info">
+                <h3 class="activity-title">Movie Date Together</h3>
+                <p class="activity-desc">
+                  Sitting next to you in the dark theatre, sharing popcorn and
+                  stealing glances, honestly the movie was great but
+                  <span class="highlight">you were the best part</span>
+                  . Every moment with you feels like a scene from my favorite
+                  love story. 🎥💫
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Activity 3: Photo Booth -->
+          <div class="activity-card" data-index="2">
+            <div class="activity-time">
+              <span class="time-dot"></span>
+              <span class="time-label">Evening</span>
+            </div>
+            <div class="activity-body">
+              <div class="activity-icon-wrap">
+                <span class="activity-icon">📸</span>
+                <span class="activity-icon-sub">✌️</span>
+              </div>
+              <div class="activity-info">
+                <h3 class="activity-title">Photo Booth Memories</h3>
+                <p class="activity-desc">
+                  Silly faces, cute poses, and
+                  <span class="highlight">memories frozen in time</span>
+                  — our photo booth session was pure magic! Those little photo
+                  strips are a treasure trove of our funniest and most heartfelt
+                  moments together. 📷💝
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Activity 4: Arcade Games -->
+          <div class="activity-card" data-index="3">
+            <div class="activity-time">
+              <span class="time-dot"></span>
+              <span class="time-label">Evening</span>
+            </div>
+            <div class="activity-body">
+              <div class="activity-icon-wrap">
+                <span class="activity-icon">🎮</span>
+                <span class="activity-icon-sub">🥽</span>
+              </div>
+              <div class="activity-info">
+                <h3 class="activity-title">Arcade & VR Adventures</h3>
+                <p class="activity-desc">
+                  From
+                  <span class="highlight">VR games</span>
+                  that made us have fun, to competitive arcade battles — it was
+                  pure adrenaline and joy! Whether we won or lost, we had the
+                  time of our lives. Turns out,
+                  <span class="highlight">we make the best team</span>
+                  in every universe — virtual or real! 🕹️🏆
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Activity 5: Veg Biryani Proposal -->
+          <div class="activity-card final-card" data-index="4">
+            <div class="activity-time">
+              <span class="time-dot final-dot"></span>
+              <span class="time-label">The Grand Finale</span>
+            </div>
+            <div class="activity-body">
+              <div class="activity-icon-wrap final-icon">
+                <span class="activity-icon">🍛</span>
+                <span class="activity-icon-sub">💍</span>
+              </div>
+              <div class="activity-info">
+                <h3 class="activity-title">Proposed with Veg Biryani</h3>
+                <p class="activity-desc">
+                  And then came the moment I'd been waiting for... Over a plate
+                  of
+                  <span class="highlight">Veg Biryani</span>
+                  — because our love story deserved to be as flavorful, warm,
+                  and unforgettable as this dish. I looked into your eyes and
+                  let my heart speak.
+                  <span class="highlight">You + Me + Biryani = Forever</span>
+                  , As biryani mix so well together even with the diffrences, i
+                  hope we also mix well together with our diffrences. 💕🍚💘
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Love Letter Section -->
+      <div class="love-letter" id="loveLetter">
+        <div class="letter-decoration tl">💖</div>
+        <div class="letter-decoration tr">💗</div>
+        <h2 class="letter-greeting">My Dearest Love,</h2>
+        <div class="letter-body">
+          <p>
+            This Valentine's Week has been the most beautiful chapter of our
+            story. From the very first rose to the perfect date — every single
+            day was a reminder of how deeply, madly, and completely I am in love
+            with you.
+          </p>
+          <p>
+            You are not just my Valentine — you are my
+            <span class="highlight">best friend</span>
+            , my
+            <span class="highlight">soulmate</span>
+            , and my
+            <span class="highlight">favourite person</span>
+            . Every laugh we shared, every moment we created — they are all
+            treasures we will carry in our hearts.
+          </p>
+          <p>
+            Thank you for saying YES. Thank you for being YOU. And thank you for
+            making this ordinary boy feel like the luckiest person alive.
+          </p>
+          <p>Here's to us — today, tomorrow, and forever. ❤️</p>
+        </div>
+        <div class="letter-signature">
+          <p>Forever & Always yours,</p>
+          <p class="signature-name">~ Athreya 💘</p>
+        </div>
+        <div class="letter-decoration bl">💓</div>
+        <div class="letter-decoration br">💝</div>
+      </div>
+
+      <!-- Footer -->
+      <div class="footer-section" id="footerSection">
+        <p class="footer-quote">
+          "Every love story is beautiful, but ours is my favorite."
+        </p>
+        <div class="footer-hearts">
+          <span>🌹</span>
+          <span>💍</span>
+          <span>🍫</span>
+          <span>🐼</span>
+          <span>🌊</span>
+          <span>💜</span>
+          <span>💋</span>
+          <span>❤️</span>
+        </div>
+        <p class="footer-text">8 Days of Love — Complete 💕</p>
+      </div>
+    </main>
+
+    <script src="valentineday.js"></script>
+  </body>
+</html>

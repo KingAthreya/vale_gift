@@ -74,6 +74,7 @@ body {
     border-radius: 50%;
     pointer-events: none;
     animation: particleFloat 20s linear infinite;
+    will-change: transform, opacity;
 }
 
 @keyframes particleFloat {
@@ -109,6 +110,7 @@ body {
     font-size: 1.5rem;
     opacity: 0.4;
     animation: decoFloat 10s ease-in-out infinite;
+    will-change: transform;
 }
 
 .deco-1 { top: 10%; left: 5%; animation-delay: 0s; }
@@ -243,13 +245,33 @@ body {
     }
 }
 
-/* Hidden audio container */
+/* Music player paused state */
+.music-player.paused {
+    opacity: 0.7;
+}
+
+.music-player.paused .music-icon {
+    animation: none;
+}
+
+.music-player.paused .music-visualizer span {
+    animation-play-state: paused;
+}
+
+.music-player:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 25px rgba(255, 105, 180, 0.4);
+}
+
+/* Hidden audio container — NOT visibility:hidden, as that blocks YouTube IFrame API */
 .audio-container {
-    position: absolute;
-    width: 0;
-    height: 0;
-    overflow: hidden;
-    visibility: hidden;
+    position: fixed;
+    top: -9999px;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
 }
 
 /* Mobile responsive music player */
@@ -324,6 +346,7 @@ body {
     opacity: 0.6;
     animation: floatUp var(--float-duration) linear infinite;
     user-select: none;
+    will-change: transform, opacity;
 }
 
 /* Float up animation for hearts */

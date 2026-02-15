@@ -1,0 +1,906 @@
+/**
+ * VALENTINE'S DAY - THE GRAND FINALE
+ * Theme: Deep crimson, warm gold, romantic rose
+ * GPU-optimized animations with will-change & transforms
+ */
+
+/* ============================================
+   CSS CUSTOM PROPERTIES
+   ============================================ */
+
+:root {
+    --v-crimson: #dc143c;
+    --v-deep-red: #8b0000;
+    --v-rose: #ff4571;
+    --v-gold: #ffd700;
+    --v-gold-soft: #ffecb3;
+    --v-pink: #ff85a2;
+    --v-blush: #ffe0e6;
+    --v-cream: #fff7f8;
+    --v-dark: #1a0a10;
+    --v-dark-card: #2a0f1a;
+    --v-text: #f5e6ea;
+    --v-text-soft: rgba(245, 230, 234, 0.75);
+    --v-glass: rgba(42, 15, 26, 0.55);
+    --v-glass-border: rgba(255, 69, 113, 0.25);
+    --v-glass-light: rgba(255, 255, 255, 0.06);
+}
+
+/* ============================================
+   RESET & BASE
+   ============================================ */
+
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    font-family: 'Quicksand', -apple-system, sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(
+        135deg,
+        #1a0a10 0%,
+        #2a0f1a 15%,
+        #3d1525 30%,
+        #4a1a2e 45%,
+        #3d1525 60%,
+        #2a0f1a 80%,
+        #1a0a10 100%
+    );
+    color: var(--v-text);
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Romantic ambient glow overlay */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        radial-gradient(ellipse at 20% 20%, rgba(220, 20, 60, 0.12) 0%, transparent 40%),
+        radial-gradient(ellipse at 80% 30%, rgba(255, 69, 113, 0.1) 0%, transparent 35%),
+        radial-gradient(ellipse at 50% 80%, rgba(255, 215, 0, 0.08) 0%, transparent 45%),
+        radial-gradient(ellipse at 30% 70%, rgba(220, 20, 60, 0.06) 0%, transparent 35%),
+        radial-gradient(ellipse at 70% 60%, rgba(255, 133, 162, 0.07) 0%, transparent 40%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ============================================
+   PARTICLE CANVAS (GPU Accelerated)
+   ============================================ */
+
+#particleCanvas {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ============================================
+   FLOATING ELEMENTS BACKGROUND
+   ============================================ */
+
+.floats-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.floating-item {
+    position: absolute;
+    font-size: 2rem;
+    opacity: 0.7;
+    animation: floatHeart var(--float-duration, 12s) linear infinite;
+    user-select: none;
+    will-change: transform, opacity;
+}
+
+@keyframes floatHeart {
+    0% {
+        transform: translateY(105vh) translateX(0) rotate(0deg);
+        opacity: 0;
+    }
+    5% { opacity: 0.7; }
+    25% { transform: translateY(75vh) translateX(25px) rotate(15deg); }
+    50% { transform: translateY(50vh) translateX(-20px) rotate(-10deg); }
+    75% { transform: translateY(25vh) translateX(15px) rotate(12deg); }
+    95% { opacity: 0.7; }
+    100% {
+        transform: translateY(-50px) translateX(5px) rotate(0deg);
+        opacity: 0;
+    }
+}
+
+/* Twinkling star */
+.twinkle-star {
+    position: absolute;
+    font-size: 1rem;
+    animation: twinkle 2.5s ease-in-out infinite;
+    user-select: none;
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.2; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.2); }
+}
+
+/* Floating heart glow orb */
+.heart-orb {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--v-rose);
+    box-shadow: 0 0 12px 4px rgba(255, 69, 113, 0.5);
+    animation: orbFloat 8s ease-in-out infinite;
+}
+
+@keyframes orbFloat {
+    0%, 100% {
+        transform: translateY(0) translateX(0);
+        opacity: 0.4;
+    }
+    25% { transform: translateY(-30px) translateX(15px); opacity: 0.8; }
+    50% { transform: translateY(-10px) translateX(-10px); opacity: 1; }
+    75% { transform: translateY(-25px) translateX(20px); opacity: 0.6; }
+}
+
+/* Golden sparkles */
+.golden-sparkle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: var(--v-gold);
+    border-radius: 50%;
+    box-shadow: 0 0 10px 3px rgba(255, 215, 0, 0.5);
+    animation: sparkleFloat 6s ease-in-out infinite;
+}
+
+@keyframes sparkleFloat {
+    0%, 100% {
+        transform: translateY(0) translateX(0) scale(0.5);
+        opacity: 0.3;
+    }
+    25% { transform: translateY(-30px) translateX(15px) scale(1); opacity: 1; }
+    50% { transform: translateY(-15px) translateX(-10px) scale(0.8); opacity: 0.7; }
+    75% { transform: translateY(-40px) translateX(20px) scale(1.2); opacity: 0.5; }
+}
+
+/* Light beam effect */
+.light-beam {
+    position: absolute;
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(
+        180deg,
+        transparent 0%,
+        rgba(255, 69, 113, 0.03) 20%,
+        rgba(255, 69, 113, 0.08) 50%,
+        rgba(255, 69, 113, 0.03) 80%,
+        transparent 100%
+    );
+    transform-origin: top center;
+    animation: beamRotate 20s ease-in-out infinite;
+}
+
+@keyframes beamRotate {
+    0%, 100% { transform: rotate(-20deg); opacity: 0.3; }
+    50% { transform: rotate(20deg); opacity: 0.6; }
+}
+
+/* ============================================
+   BACK BUTTON
+   ============================================ */
+
+.back-btn {
+    position: fixed;
+    top: 1.2rem;
+    left: 1.2rem;
+    padding: 0.65rem 1.4rem;
+    background: var(--v-glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--v-glass-border);
+    border-radius: 25px;
+    color: var(--v-text);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    z-index: 100;
+    transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+    will-change: transform;
+}
+
+.back-btn:hover {
+    background: var(--v-crimson);
+    transform: translateX(-4px);
+    box-shadow: 0 0 20px rgba(220, 20, 60, 0.4);
+}
+
+/* ============================================
+   MAIN CONTAINER
+   ============================================ */
+
+.valentine-container {
+    position: relative;
+    z-index: 10;
+    max-width: 750px;
+    margin: 0 auto;
+    padding: 4.5rem 1.5rem 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+}
+
+/* ============================================
+   HERO SECTION
+   ============================================ */
+
+.hero-section {
+    text-align: center;
+    opacity: 0;
+    transform: translateY(-25px);
+    animation: fadeSlideDown 0.9s ease-out forwards;
+}
+
+.hero-badge {
+    display: inline-block;
+    padding: 0.4rem 1.4rem;
+    background: linear-gradient(135deg, var(--v-crimson), var(--v-deep-red));
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--v-gold-soft);
+    margin-bottom: 1.2rem;
+    box-shadow: 0 4px 15px rgba(220, 20, 60, 0.3);
+}
+
+.hero-heart {
+    font-size: 4.5rem;
+    margin-bottom: 0.8rem;
+    display: inline-block;
+    animation: heartPulse 1.5s ease-in-out infinite;
+    will-change: transform;
+    filter: drop-shadow(0 5px 25px rgba(220, 20, 60, 0.6));
+}
+
+.hero-title {
+    font-family: 'Playfair Display', 'Dancing Script', serif;
+    font-size: 3.2rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--v-gold), var(--v-rose), var(--v-gold));
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 4s linear infinite;
+    line-height: 1.2;
+}
+
+.hero-subtitle {
+    font-size: 1.15rem;
+    color: var(--v-text-soft);
+    margin-top: 0.5rem;
+    letter-spacing: 0.08em;
+}
+
+/* ============================================
+   DATE PLAN SECTION
+   ============================================ */
+
+.date-plan-section {
+    width: 100%;
+}
+
+.section-title {
+    text-align: center;
+    font-family: 'Dancing Script', cursive;
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--v-gold);
+    margin-bottom: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    opacity: 0;
+    animation: fadeSlideUp 0.8s ease-out 0.3s forwards;
+}
+
+.title-deco {
+    animation: heartPulse 2s ease-in-out infinite;
+    display: inline-block;
+    will-change: transform;
+}
+
+/* ============================================
+   DATE TIMELINE
+   ============================================ */
+
+.date-timeline {
+    position: relative;
+    padding-left: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Vertical line */
+.date-timeline::before {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 10px;
+    bottom: 10px;
+    width: 3px;
+    background: linear-gradient(
+        to bottom,
+        var(--v-rose),
+        var(--v-crimson),
+        var(--v-gold),
+        var(--v-crimson),
+        var(--v-rose)
+    );
+    border-radius: 3px;
+    opacity: 0.6;
+}
+
+/* ============================================
+   ACTIVITY CARD
+   ============================================ */
+
+.activity-card {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: none;
+    /* animated via JS IntersectionObserver */
+}
+
+.activity-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.activity-time {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 0.5rem;
+    padding-left: 0.3rem;
+}
+
+.time-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--v-crimson);
+    box-shadow: 0 0 10px var(--v-crimson), 0 0 25px rgba(220, 20, 60, 0.3);
+    position: relative;
+    left: -2.15rem;
+    flex-shrink: 0;
+    animation: dotGlow 2s ease-in-out infinite;
+    will-change: box-shadow;
+}
+
+.time-dot.final-dot {
+    background: var(--v-gold);
+    box-shadow: 0 0 10px var(--v-gold), 0 0 25px rgba(255, 215, 0, 0.4);
+    width: 18px;
+    height: 18px;
+}
+
+.time-label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--v-pink);
+    margin-left: -2rem;
+}
+
+.activity-body {
+    background: var(--v-glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--v-glass-border);
+    border-radius: 20px;
+    padding: 1.8rem;
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    will-change: transform;
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
+}
+
+.activity-body:hover {
+    transform: translateY(-4px) scale(1.01);
+    box-shadow: 0 12px 40px rgba(220, 20, 60, 0.2), 0 0 0 1px var(--v-rose);
+    border-color: var(--v-rose);
+}
+
+/* Icon */
+.activity-icon-wrap {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, rgba(220, 20, 60, 0.2), rgba(255, 69, 113, 0.15));
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border: 1px solid rgba(255, 69, 113, 0.2);
+}
+
+.activity-icon {
+    font-size: 1.8rem;
+}
+
+.activity-icon-sub {
+    position: absolute;
+    bottom: -4px;
+    right: -4px;
+    font-size: 0.9rem;
+    background: var(--v-dark-card);
+    border-radius: 50%;
+    padding: 2px;
+}
+
+.final-icon {
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.25), rgba(220, 20, 60, 0.2));
+    border-color: rgba(255, 215, 0, 0.3);
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.15);
+}
+
+/* Info */
+.activity-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.activity-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--v-gold-soft);
+    margin-bottom: 0.6rem;
+    line-height: 1.3;
+}
+
+.activity-desc {
+    font-size: 0.95rem;
+    color: var(--v-text-soft);
+    line-height: 1.75;
+}
+
+.highlight {
+    color: var(--v-rose);
+    font-weight: 700;
+}
+
+/* Final Card special */
+.final-card .activity-body {
+    background: linear-gradient(135deg, rgba(220, 20, 60, 0.12), rgba(255, 215, 0, 0.08));
+    border: 1px solid rgba(255, 215, 0, 0.25);
+}
+
+.final-card .activity-title {
+    color: var(--v-gold);
+    font-size: 1.3rem;
+}
+
+.final-card .time-label {
+    color: var(--v-gold);
+    font-size: 0.85rem;
+}
+
+/* ============================================
+   LOVE LETTER
+   ============================================ */
+
+.love-letter {
+    position: relative;
+    width: 100%;
+    background: var(--v-glass);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid var(--v-glass-border);
+    border-radius: 24px;
+    padding: 2.5rem 2rem;
+    box-shadow: 0 8px 35px rgba(220, 20, 60, 0.15);
+    opacity: 0;
+    transform: translateY(25px);
+}
+
+.love-letter.visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+}
+
+.letter-decoration {
+    position: absolute;
+    font-size: 1.4rem;
+    opacity: 0.35;
+    animation: decorPulse 3s ease-in-out infinite;
+    will-change: transform;
+}
+
+.letter-decoration.tl { top: 12px; left: 16px; }
+.letter-decoration.tr { top: 12px; right: 16px; animation-delay: 0.5s; }
+.letter-decoration.bl { bottom: 12px; left: 16px; animation-delay: 1s; }
+.letter-decoration.br { bottom: 12px; right: 16px; animation-delay: 1.5s; }
+
+.letter-greeting {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.8rem;
+    color: var(--v-rose);
+    text-align: center;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 0 20px rgba(255, 69, 113, 0.3);
+}
+
+.letter-body {
+    line-height: 1.85;
+}
+
+.letter-body p {
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    color: var(--v-text-soft);
+    text-align: justify;
+}
+
+.letter-body .highlight {
+    color: var(--v-gold-soft);
+}
+
+.letter-signature {
+    margin-top: 1.8rem;
+    text-align: center;
+    padding-top: 1.2rem;
+    border-top: 1px solid var(--v-glass-border);
+}
+
+.letter-signature p {
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--v-text-soft);
+}
+
+.signature-name {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.3rem !important;
+    color: var(--v-rose) !important;
+    margin-top: 0.3rem;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+
+.footer-section {
+    text-align: center;
+    padding: 1rem 0;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.footer-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.footer-quote {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.4rem;
+    color: var(--v-text-soft);
+    font-style: italic;
+    margin-bottom: 1.2rem;
+}
+
+.footer-hearts {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 0.8rem;
+    flex-wrap: wrap;
+}
+
+.footer-hearts span {
+    font-size: 1.3rem;
+    display: inline-block;
+    animation: heartPulse 2s ease-in-out infinite;
+    will-change: transform;
+}
+
+.footer-hearts span:nth-child(2) { animation-delay: 0.15s; }
+.footer-hearts span:nth-child(3) { animation-delay: 0.3s; }
+.footer-hearts span:nth-child(4) { animation-delay: 0.45s; }
+.footer-hearts span:nth-child(5) { animation-delay: 0.6s; }
+.footer-hearts span:nth-child(6) { animation-delay: 0.75s; }
+.footer-hearts span:nth-child(7) { animation-delay: 0.9s; }
+.footer-hearts span:nth-child(8) { animation-delay: 1.05s; }
+
+.footer-text {
+    font-size: 0.9rem;
+    color: var(--v-pink);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+}
+
+/* ============================================
+   KEYFRAME ANIMATIONS
+   ============================================ */
+
+@keyframes fadeSlideDown {
+    from { opacity: 0; transform: translateY(-25px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(25px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes heartPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.12); }
+}
+
+@keyframes shimmer {
+    0% { background-position: 0% center; }
+    100% { background-position: 200% center; }
+}
+
+@keyframes dotGlow {
+    0%, 100% { box-shadow: 0 0 8px var(--v-crimson), 0 0 20px rgba(220, 20, 60, 0.2); }
+    50% { box-shadow: 0 0 14px var(--v-crimson), 0 0 35px rgba(220, 20, 60, 0.4); }
+}
+
+@keyframes decorPulse {
+    0%, 100% { transform: scale(1); opacity: 0.3; }
+    50% { transform: scale(1.15); opacity: 0.5; }
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+    .valentine-container {
+        padding: 5.5rem 1rem 2.5rem;
+        gap: 2.5rem;
+    }
+
+    .back-btn {
+        top: 0.8rem;
+        left: 0.8rem;
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+    }
+
+    .hero-section {
+        padding-top: 0.5rem;
+    }
+
+    .hero-badge {
+        font-size: 0.7rem;
+        padding: 0.35rem 1rem;
+    }
+
+    .hero-title {
+        font-size: 2.4rem;
+    }
+
+    .hero-heart {
+        font-size: 3.5rem;
+    }
+
+    .section-title {
+        font-size: 1.6rem;
+    }
+
+    .activity-body {
+        padding: 1.3rem;
+        gap: 1rem;
+    }
+
+    .activity-icon-wrap {
+        width: 48px;
+        height: 48px;
+    }
+
+    .activity-icon {
+        font-size: 1.4rem;
+    }
+
+    .activity-title {
+        font-size: 1.05rem;
+    }
+
+    .activity-desc {
+        font-size: 0.88rem;
+    }
+
+    .love-letter {
+        padding: 2rem 1.3rem;
+    }
+
+    .letter-greeting {
+        font-size: 1.5rem;
+    }
+
+    .footer-quote {
+        font-size: 1.15rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .valentine-container {
+        padding: 5rem 0.8rem 2rem;
+        gap: 2rem;
+    }
+
+    .back-btn {
+        top: 0.6rem;
+        left: 0.6rem;
+        padding: 0.45rem 0.9rem;
+        font-size: 0.75rem;
+    }
+
+    .hero-section {
+        padding-top: 0.8rem;
+    }
+
+    .hero-badge {
+        font-size: 0.65rem;
+        padding: 0.3rem 0.9rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .hero-title {
+        font-size: 1.9rem;
+    }
+
+    .hero-heart {
+        font-size: 3rem;
+    }
+
+    .hero-subtitle {
+        font-size: 0.95rem;
+    }
+
+    .section-title {
+        font-size: 1.3rem;
+        flex-direction: column;
+        gap: 0.3rem;
+    }
+
+    .date-timeline {
+        padding-left: 1.5rem;
+    }
+
+    .activity-body {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 0.8rem;
+        padding: 1.2rem;
+    }
+
+    .activity-desc {
+        text-align: center;
+    }
+
+    .activity-title {
+        font-size: 1rem;
+    }
+
+    .time-dot {
+        left: -1.65rem;
+    }
+
+    .time-label {
+        margin-left: -1.5rem;
+    }
+
+    .love-letter {
+        padding: 1.5rem 1rem;
+    }
+
+    .letter-body p {
+        font-size: 0.9rem;
+        text-align: left;
+    }
+
+    .footer-hearts span {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 320px) {
+    .valentine-container {
+        padding: 4.5rem 0.6rem 1.5rem;
+    }
+
+    .back-btn {
+        top: 0.5rem;
+        left: 0.5rem;
+        padding: 0.4rem 0.8rem;
+        font-size: 0.7rem;
+    }
+
+    .hero-section {
+        padding-top: 1rem;
+    }
+
+    .hero-badge {
+        font-size: 0.6rem;
+        padding: 0.25rem 0.8rem;
+    }
+
+    .hero-title {
+        font-size: 1.6rem;
+    }
+
+    .date-timeline {
+        padding-left: 1.2rem;
+    }
+
+    .time-dot {
+        left: -1.35rem;
+        width: 10px;
+        height: 10px;
+    }
+
+    .time-label {
+        margin-left: -1.2rem;
+        font-size: 0.7rem;
+    }
+}
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    #particleCanvas {
+        display: none;
+    }
+}
+
+.back-btn:focus-visible {
+    outline: 3px solid var(--v-rose);
+    outline-offset: 3px;
+}
