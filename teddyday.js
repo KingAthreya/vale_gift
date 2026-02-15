@@ -299,3 +299,10 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('🐼 Teddy Day page initialized!');
     console.log('Happy Teddy Day! 💛');
 });
+
+window.addEventListener('pageshow', (event) => {
+    if (event.persisted) {
+        window.location.reload();
+    }
+});
+

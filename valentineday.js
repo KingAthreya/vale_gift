@@ -13,6 +13,9 @@ const ctx = canvas.getContext('2d');
 const floatsContainer = document.getElementById('floatsContainer');
 const particles = [];
 const MAX_PARTICLES = 40;
+let particleAnimationFrameId = null;
+let ambientEffectIntervals = [];
+let ambientEffectsRunning = false;
 
 // Heart and love emojis for floating animation
 const heartEmojis = ['❤️', '💕', '💖', '💗', '💓', '💝', '💘', '🌹', '✨', '💫', '🌟', '💍'];
@@ -71,7 +74,28 @@ function drawParticles() {
         particles.push(createParticle());
     }
 
-    requestAnimationFrame(drawParticles);
+    particleAnimationFrameId = requestAnimationFrame(drawParticles);
+}
+
+function startParticleLoop() {
+    if (particleAnimationFrameId !== null || document.hidden) return;
+    drawParticles();
+}
+
+function stopParticleLoop() {
+    if (particleAnimationFrameId === null) return;
+    cancelAnimationFrame(particleAnimationFrameId);
+    particleAnimationFrameId = null;
+}
+
+function addAmbientInterval(callback, delay) {
+    const id = setInterval(callback, delay);
+    ambientEffectIntervals.push(id);
+}
+
+function clearAmbientIntervals() {
+    ambientEffectIntervals.forEach((id) => clearInterval(id));
+    ambientEffectIntervals = [];
 }
 
 // ============================================
@@ -241,7 +265,7 @@ function initMouseInteraction() {
 
     document.addEventListener('mousemove', (e) => {
         const now = Date.now();
-        if (now - lastTime < 100) return;
+        if (now - lastTime < 130) return;
         lastTime = now;
 
         if (Math.random() > 0.6) {
@@ -260,7 +284,7 @@ function initMouseInteraction() {
                 box-shadow: 0 0 ${size * 2}px ${size}px hsla(${hue}, 80%, 65%, 0.5);
                 pointer-events: none;
                 z-index: 50;
-                transition: all 1s ease-out;
+                transition: all 1.2s ease-out;
                 opacity: 0.9;
                 will-change: transform, opacity;
             `;
@@ -273,7 +297,7 @@ function initMouseInteraction() {
                 sparkle.style.opacity = '0';
             });
 
-            setTimeout(() => { sparkle.remove(); }, 1000);
+            setTimeout(() => { sparkle.remove(); }, 1200);
         }
     });
 }
@@ -484,23 +508,55 @@ function initEffects() {
         setTimeout(createLightBeam, i * 800);
     }
 
+    startAmbientEffects();
+}
+
+function startAmbientEffects() {
+    if (ambientEffectsRunning || document.hidden) return;
+    ambientEffectsRunning = true;
+
     // Continuous floating items
-    setInterval(createFloatingItem, 1800);
+    addAmbientInterval(createFloatingItem, 2400);
 
     // Continuous twinkling stars
-    setInterval(createTwinkleStar, 800);
+    addAmbientInterval(createTwinkleStar, 1400);
 
     // Continuous heart orbs
-    setInterval(createHeartOrb, 2500);
+    addAmbientInterval(createHeartOrb, 3200);
 
     // Continuous golden sparkles
-    setInterval(createGoldenSparkle, 2000);
+    addAmbientInterval(createGoldenSparkle, 2800);
 
     // Continuous light beams
-    setInterval(createLightBeam, 6000);
+    addAmbientInterval(createLightBeam, 7500);
+}
+
+function stopAmbientEffects() {
+    ambientEffectsRunning = false;
+    clearAmbientIntervals();
+}
+
+function handlePageVisibilityChange() {
+    if (document.hidden) {
+        stopParticleLoop();
+        stopAmbientEffects();
+        return;
+    }
+
+    startParticleLoop();
+    startAmbientEffects();
 }
 
 window.addEventListener('resize', resizeCanvas);
+document.addEventListener('visibilitychange', handlePageVisibilityChange);
+window.addEventListener('pagehide', () => {
+    stopParticleLoop();
+    stopAmbientEffects();
+});
+window.addEventListener('pageshow', () => {
+    resizeCanvas();
+    handlePageVisibilityChange();
+});
 
 document.addEventListener('DOMContentLoaded', () => {
     resizeCanvas();
@@ -512,7 +568,7 @@ document.addEventListener('DOMContentLoaded', () => {
         particles.push(p);
     }
 
-    drawParticles();
+    startParticleLoop();
     initEffects();
     initScrollReveal();
     initMouseInteraction();

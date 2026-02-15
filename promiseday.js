@@ -432,3 +432,10 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('🌊 Promise Day page initialized!');
     console.log('Happy Promise Day! 🐚🌙');
 });
+
+window.addEventListener('pageshow', (event) => {
+    if (event.persisted) {
+        window.location.reload();
+    }
+});
+

@@ -25,6 +25,18 @@ const confettiEmojis = ['💕', '💖', '💗', '💓', '💝', '💘', '🩷', 
 let isPlaying = false;
 let youtubePlayer = null;
 let playerReady = false;
+let ambientEffectIntervals = [];
+let ambientEffectsRunning = false;
+
+function addAmbientInterval(callback, delay) {
+    const id = setInterval(callback, delay);
+    ambientEffectIntervals.push(id);
+}
+
+function clearAmbientIntervals() {
+    ambientEffectIntervals.forEach((id) => clearInterval(id));
+    ambientEffectIntervals = [];
+}
 
 // ============================================
 // MUSIC PLAYER TOGGLE
@@ -210,8 +222,6 @@ function initFloatingHearts() {
         setTimeout(createFloatingHeart, i * 500);
     }
     
-    // Continue creating hearts every 1.5s (reduced for smoothness)
-    setInterval(createFloatingHeart, 1500);
 }
 
 // ============================================
@@ -253,7 +263,19 @@ function initParticles() {
         setTimeout(createParticle, i * 800);
     }
     
-    setInterval(createParticle, 3500);
+}
+
+function startAmbientEffects() {
+    if (ambientEffectsRunning || document.hidden) return;
+    ambientEffectsRunning = true;
+
+    addAmbientInterval(createFloatingHeart, 1900);
+    addAmbientInterval(createParticle, 4200);
+}
+
+function stopAmbientEffects() {
+    ambientEffectsRunning = false;
+    clearAmbientIntervals();
 }
 
 // ============================================
@@ -373,7 +395,7 @@ function initMouseInteraction() {
     
     document.addEventListener('mousemove', (e) => {
         const now = Date.now();
-        if (now - lastTime < 200) return; // Increased throttle
+        if (now - lastTime < 240) return;
         lastTime = now;
         
         if (Math.random() > 0.8) {
@@ -389,7 +411,7 @@ function initMouseInteraction() {
                 box-shadow: 0 0 8px 3px rgba(255, 105, 180, 0.3);
                 pointer-events: none;
                 z-index: 50;
-                transition: all 0.6s ease-out;
+                transition: all 0.75s ease-out;
                 opacity: 0.8;
                 will-change: transform, opacity;
             `;
@@ -400,7 +422,7 @@ function initMouseInteraction() {
                 sparkle.style.opacity = '0';
             });
             
-            setTimeout(() => sparkle.remove(), 600);
+            setTimeout(() => sparkle.remove(), 750);
         }
     });
 }
@@ -465,6 +487,19 @@ function initEventListeners() {
     }
 }
 
+function handlePageVisibilityChange() {
+    if (document.hidden) {
+        stopAmbientEffects();
+        return;
+    }
+
+    startAmbientEffects();
+}
+
+document.addEventListener('visibilitychange', handlePageVisibilityChange);
+window.addEventListener('pagehide', stopAmbientEffects);
+window.addEventListener('pageshow', handlePageVisibilityChange);
+
 // ============================================
 // INITIALIZATION
 // ============================================
@@ -480,6 +515,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initClickInteraction();
     initYouTubeAPI();
     initMusicPlayer();
+    startAmbientEffects();
     
     // Trigger initial confetti celebration
     triggerConfetti();

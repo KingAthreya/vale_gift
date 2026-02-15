@@ -391,3 +391,10 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('💜 Hug Day page initialized!');
     console.log('Happy Hug Day! 💎✨');
 });
+
+window.addEventListener('pageshow', (event) => {
+    if (event.persisted) {
+        window.location.reload();
+    }
+});
+
